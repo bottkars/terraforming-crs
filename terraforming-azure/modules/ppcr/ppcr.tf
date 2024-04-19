@@ -50,7 +50,7 @@ resource "azurerm_virtual_machine" "ppcr" {
     disable_password_authentication = true
     ssh_keys {
       key_data = tls_private_key.ppcr.public_key_openssh
-      path     = "/home/ppcradmin/.ssh/authorized_keys"
+      path     = "/home/${var.MgmtHostAdminUsername}/.ssh/authorized_keys"
     }
   }
 
