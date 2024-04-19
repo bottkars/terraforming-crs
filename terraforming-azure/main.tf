@@ -44,3 +44,8 @@ module "common_rg" {
   resource_group_name = var.common_resource_group_name
   location            = var.common_location
 }
+
+module "ppcr" {
+  source              = "./modules/ppcr"
+  count               = var.create_common_rg ? 1 : 0
+}
