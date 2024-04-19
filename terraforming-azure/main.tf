@@ -47,5 +47,4 @@ module "common_rg" {
 
 module "ppcr" {
   source              = "./modules/ppcr"
-  count               = var.create_common_rg ? 1 : 0
 }
