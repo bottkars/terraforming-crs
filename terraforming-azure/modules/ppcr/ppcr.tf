@@ -55,10 +55,7 @@ resource "azurerm_virtual_machine" "ppcr" {
   }
 
 
-  boot_diagnostics {
-    enabled     = "true"
-    storage_uri = azurerm_storage_account.ppcr_diag_storage_account.primary_blob_endpoint
-  }
+
   zones = ["1"]
   tags = {
     "cr.vault-mgmt-host.account": "PPCR Mgmt Host VM"
