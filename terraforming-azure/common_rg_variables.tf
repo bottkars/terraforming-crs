@@ -1,4 +1,4 @@
-variable "resource_group_name" {
+variable "common_resource_group_name" {
     description = "Name of a common resorce group for all but network resources"    
 }
 
