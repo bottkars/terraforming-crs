@@ -57,7 +57,7 @@ module "networks" {
 module "common_rg" {
   source              = "./modules/rg"
   count               = var.create_common_rg ? 1 : 0
-  resource_group_name = var.common_resource_group_name
+  resource_group_name = var.var.common_resource_group_name == "" ? "${var.resourcePrefix}-rg" : var.common_resource_group_name
   location            = var.common_location
 }
 

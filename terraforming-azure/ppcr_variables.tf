@@ -3,10 +3,8 @@ variable "ppcr_networks_resource_group_name" {
 }
 
 variable "ppcr_resource_group_name" {
-  default = "customer0"
-
 }
 
 variable "PPCR_MgmtNumber" {
-  default = 2
+  default = 16
 }
