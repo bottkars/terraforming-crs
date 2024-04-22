@@ -1,5 +1,6 @@
 variable "common_resource_group_name" {
-    description = "Name of a common resorce group for all but network resources"       
+    description = "Name of a common resorce group for all but network resources"  
+    default = null     
 }
 
 variable "create_common_rg" {
