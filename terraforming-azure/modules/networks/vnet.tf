@@ -1,5 +1,5 @@
 
-data "azurerm_resource_group" "ppcr_networks_resource_group" {
+data "azurerm_resource_group" "networks_resource_group" {
   name = var.networks_resource_group_name
 }
 
