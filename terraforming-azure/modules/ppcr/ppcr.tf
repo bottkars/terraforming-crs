@@ -12,15 +12,18 @@ data "template_file" "cloudinit" {
   template = file("${path.module}/cloudinit.tpl")
 
 }
-#data "azurerm_image" "ppcr_image" {
-#  name                = var.custom_image_name
-#  resource_group_name = "cr_general_rg"
-#  ga
-#}
+
 resource "tls_private_key" "ppcr" {
   algorithm = "RSA"
   rsa_bits  = "4096"
 }
+
+resource "random_string" "storage_account_name" {
+  length  = 16
+  special = false
+  upper   = false
+}
+
 
 resource "azurerm_virtual_machine" "ppcr" {
   name                             = "${var.resourcePrefix}-CR-VM"
@@ -91,15 +94,14 @@ resource "azurerm_network_interface" "ppcr_nic" {
 
 resource "azurerm_storage_account" "ddve_diag_storage_account" {
   name                     = "${var.resourcePrefix}-CR-VM-diag${random_string.storage_account_name.result}"
-  resource_group_name      = data.azurerm_resource_group.ddve_resource_group.name
-  location                 = data.azurerm_resource_group.ddve_resource_group.location
+  resource_group_name              = data.azurerm_resource_group.ppcr_resource_group.name
+  location                         = data.azurerm_resource_group.ppcr_resource_group.location
   account_tier             = "Standard"
   account_replication_type = "LRS"
   min_tls_version = "TLS1_2"
   enable_https_traffic_only = true
   network_rules {
     default_action             = "Deny"
-    ip_rules = [chomp(data.http.myip.response_body)]
     virtual_network_subnet_ids = [var.subnet_id]
   }
   tags = {
