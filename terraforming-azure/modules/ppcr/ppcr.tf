@@ -8,6 +8,10 @@ data "azurerm_resource_group" "ppcr_resource_group" {
   name = var.ppcr_resource_group_name
 }
 
+data "template_file" "cloudinit" {
+  template = "${file("${path.module}/cloudinit.tpl")}"
+
+}
 #data "azurerm_image" "ppcr_image" {
 #  name                = var.custom_image_name
 #  resource_group_name = "cr_general_rg"
@@ -45,13 +49,16 @@ resource "azurerm_virtual_machine" "ppcr" {
     computer_name  = "${var.resourcePrefix}-CR-VM"
     admin_username = var.MgmtHostAdminUsername
     admin_password = var.MgmtHostAdminPassword
+    custom_data    = base64encode(data.template_file.cloudinit.rendered)
   }
   os_profile_linux_config {
     disable_password_authentication = true
     ssh_keys {
       key_data = tls_private_key.ppcr.public_key_openssh
       path     = "/home/${var.MgmtHostAdminUsername}/.ssh/authorized_keys"
+
     }
+
   }
 
 
