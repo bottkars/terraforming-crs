@@ -58,14 +58,14 @@ module "common_rg" {
   source              = "./modules/rg"
   count               = var.create_common_rg ? 1 : 0
   resource_group_name = var.common_resource_group_name
-  location            = var.location
+  location            = var.common_location
 }
 
 module "ppcr" {
   source                       = "./modules/ppcr"
   networks_resource_group_name = var.ppcr_networks_resource_group_name
   CR_DDVE_subnet_id = var.create_networks ? module.networks[0].subnet_0_id : var.CR_DDVE_subnet_id
-  resource_group_name          = var.ppcr_resource_group_name
+  resource_group_name          = var.create_common_rg ? module.common_rg[0].resource_group.name : var.ppcr_resource_group_name
   resourcePrefix               = var.resourcePrefix
   PPCR_MgmtIpAddress           = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.PPCR_MgmtNumber)
 }
