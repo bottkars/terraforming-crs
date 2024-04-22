@@ -93,7 +93,7 @@ resource "azurerm_network_interface" "ppcr_nic" {
 
 
 resource "azurerm_storage_account" "ppcr_diag_storage_account" {
-  name                     = "${var.resourcePrefix}-CR-VM-diag${random_string.storage_account_name.result}"
+  name                     = "ppcrvmdiag${random_string.storage_account_name.result}"
   resource_group_name              = data.azurerm_resource_group.ppcr_resource_group.name
   location                         = data.azurerm_resource_group.ppcr_resource_group.location
   account_tier             = "Standard"
