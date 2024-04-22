@@ -29,21 +29,18 @@ resource "azurerm_virtual_machine" "ppcr" {
   name                             = "${var.resourcePrefix}-CR-VM"
   resource_group_name              = data.azurerm_resource_group.ppcr_resource_group.name
   location                         = data.azurerm_resource_group.ppcr_resource_group.location
-  depends_on                       = [azurerm_network_interface.ppcr_nic]
+  depends_on                       = [azurerm_network_interface.ppcr_nic, azurerm_storage_account.ppcr_diag_storage_account]
   network_interface_ids            = [azurerm_network_interface.ppcr_nic.id]
   vm_size                          = local.MgmtHostVirtualMachineSize
   delete_os_disk_on_termination    = "true"
   delete_data_disks_on_termination = "true"
+
   storage_os_disk {
     name              = "${var.resourcePrefix}-ppcrOsDisk"
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "StandardSSD_LRS"
   }
-
-
-
-
   storage_image_reference {
     #    id = local.ppcr_image[var.ppcr_version]["id"]
     id = "/subscriptions/2763ec59-6bb9-45bd-a62c-468bd0177ba2/resourceGroups/cr_general_rg/providers/Microsoft.Compute/galleries/cr_general_gallary/images/cyber_recovery_mgmnt_host/versions/19.16.01"
