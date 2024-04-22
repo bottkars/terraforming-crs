@@ -41,14 +41,31 @@ provider "azurerm" {
   skip_provider_registration = true
 }
 
+module "networks" {
+  source                        = "./modules/networks"
+  count                         = var.create_networks ? 1 : 0
+  resourcePrefix                = var.resourcePrefix
+  networks_resource_group_name  = var.ppcr_networks_resource_group_name 
+  virtual_network_address_space = var.vnetAddressSpace
+  location                      = var.location
+  Subnet0AddressSpace           = var.JumpHostSubnetAddressSpace
+  Subnet1AddressSpace           = var.CR_DDVE_SubnetAddressSpace
+}
+
+
 
 module "common_rg" {
   source              = "./modules/rg"
   count               = var.create_common_rg ? 1 : 0
-  resource_group_name = var.common_resource_group_name
-  location            = var.common_location
+  resource_group_name = var.resource_group_name
+  location            = var.location
 }
 
 module "ppcr" {
-  source = "./modules/ppcr"
+  source                       = "./modules/ppcr"
+  networks_resource_group_name = var.ppcr_networks_resource_group_name
+  CR_DDVE_subnet_id = var.create_networks ? module.networks[0].subnet_0_id : var.CR_DDVE_subnet_id
+  resource_group_name          = var.ppcr_resource_group_name
+  resourcePrefix               = var.resourcePrefix
+  PPCR_MgmtIpAddress           = cidrhost(var.CR_DDVE_SubnetAddressSpace, 30)
 }

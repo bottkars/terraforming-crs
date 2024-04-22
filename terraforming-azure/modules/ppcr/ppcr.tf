@@ -2,10 +2,10 @@ locals {
   MgmtHostVirtualMachineSize = "Standard_D4ds_v4"
 }
 data "azurerm_resource_group" "ppcr_networks_resource_group" {
-  name = var.ppcr_networks_resource_group_name
+  name = var.networks_resource_group_name
 }
 data "azurerm_resource_group" "ppcr_resource_group" {
-  name = var.ppcr_resource_group_name
+  name = var.resource_group_name
 }
 
 data "template_file" "cloudinit" {
@@ -84,9 +84,9 @@ resource "azurerm_network_interface" "ppcr_nic" {
   location            = data.azurerm_resource_group.ppcr_networks_resource_group.location
   ip_configuration {
     name                          = "${var.resourcePrefix}-CR-VM-ip-config"
-    subnet_id                     = var.subnet_id
+    subnet_id                     = var.CR_DDVE_subnet_id
     private_ip_address_allocation = "Static"
-    private_ip_address            = var.MgmtHostIpAddress
+    private_ip_address            = var.PPCR_MgmtIpAddress
     private_ip_address_version    = "IPv4"
   }
 }
@@ -102,7 +102,7 @@ resource "azurerm_storage_account" "ppcr_diag_storage_account" {
   enable_https_traffic_only = true
   network_rules {
     default_action             = "Deny"
-    virtual_network_subnet_ids = [var.subnet_id]
+    virtual_network_subnet_ids = [var.CR_DDVE_subnet_id]
   }
   tags = {
     vm = "${var.resourcePrefix}-CR-VM"
