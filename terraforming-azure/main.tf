@@ -67,5 +67,5 @@ module "ppcr" {
   CR_DDVE_subnet_id = var.create_networks ? module.networks[0].subnet_0_id : var.CR_DDVE_subnet_id
   resource_group_name          = var.ppcr_resource_group_name
   resourcePrefix               = var.resourcePrefix
-  PPCR_MgmtIpAddress           = cidrhost(var.CR_DDVE_SubnetAddressSpace, 30)
+  PPCR_MgmtIpAddress           = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.PPCR_MgmtNumber)
 }

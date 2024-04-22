@@ -7,6 +7,6 @@ variable "ppcr_resource_group_name" {
 
 }
 
-variable "PPCR_MgmtIpAddress" {
-  
+variable "PPCR_MgmtNumber" {
+  default = 30
 }
