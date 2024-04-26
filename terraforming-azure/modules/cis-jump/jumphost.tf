@@ -19,10 +19,10 @@ resource "random_string" "storage_account_name" {
 
 resource "azurerm_virtual_machine" "jumphost" {
   name                          = "${var.resourcePrefix}-JH-VM"
-  resource_group_name              = data.azurerm_resource_group.jumphost_resource_group.name
-  location                         = data.azurerm_resource_group.jumphost_resource_group.location
-  depends_on                       = [azurerm_network_interface.jumphost_nic, azurerm_storage_account.jumphost_diag_storage_account]
-  network_interface_ids            = [azurerm_network_interface.jumphost_nic.id]
+  resource_group_name           = data.azurerm_resource_group.jumphost_resource_group.name
+  location                      = data.azurerm_resource_group.jumphost_resource_group.location
+  depends_on                    = [azurerm_network_interface.jumphost_nic, azurerm_storage_account.jumphost_diag_storage_account]
+  network_interface_ids         = [azurerm_network_interface.jumphost_nic.id]
   vm_size                       = local.jumphostVirtualMachineSize
   delete_os_disk_on_termination = "true"
   storage_os_disk {
@@ -30,6 +30,14 @@ resource "azurerm_virtual_machine" "jumphost" {
     caching           = "ReadWrite"
     create_option     = "FromImage"
     managed_disk_type = "StandardSSD_LRS"
+  }
+  os_profile {
+    computer_name  = "${var.resourcePrefix}-CR-VM"
+    admin_username = var.jumphostAdminUserName
+    admin_password = var.jumphostAdminPassword
+  }
+  os_profile_windows_config {
+    enable_automatic_upgrades = false
   }
 
   plan {
@@ -46,10 +54,10 @@ resource "azurerm_virtual_machine" "jumphost" {
     version   = "latest"
   }
 
- }
+}
 
 
- resource "azurerm_network_interface" "jumphost_nic" {
+resource "azurerm_network_interface" "jumphost_nic" {
   name                = "${var.resourcePrefix}-jumpHost-VM-nic"
   resource_group_name = data.azurerm_resource_group.jumphost_networks_resource_group.name
   location            = data.azurerm_resource_group.jumphost_networks_resource_group.location
@@ -64,12 +72,12 @@ resource "azurerm_virtual_machine" "jumphost" {
 
 
 resource "azurerm_storage_account" "jumphost_diag_storage_account" {
-  name                     = "vmdiag${random_string.storage_account_name.result}"
-  resource_group_name              = data.azurerm_resource_group.jumphost_resource_group.name
-  location                         = data.azurerm_resource_group.jumphost_resource_group.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-  min_tls_version = "TLS1_2"
+  name                      = "vmdiag${random_string.storage_account_name.result}"
+  resource_group_name       = data.azurerm_resource_group.jumphost_resource_group.name
+  location                  = data.azurerm_resource_group.jumphost_resource_group.location
+  account_tier              = "Standard"
+  account_replication_type  = "LRS"
+  min_tls_version           = "TLS1_2"
   enable_https_traffic_only = true
   network_rules {
     default_action             = "Deny"
