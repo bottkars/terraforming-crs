@@ -50,11 +50,11 @@ resource "azurerm_virtual_machine" "jumphost" {
 
 
  resource "azurerm_network_interface" "jumphost_nic" {
-  name                = "${var.resourcePrefix}-jumHost-VM-nic"
+  name                = "${var.resourcePrefix}-jumpHost-VM-nic"
   resource_group_name = data.azurerm_resource_group.jumphost_networks_resource_group.name
   location            = data.azurerm_resource_group.jumphost_networks_resource_group.location
   ip_configuration {
-    name                          = "${var.resourcePrefix}-jumHost-ip-config"
+    name                          = "${var.resourcePrefix}-jumpHost-ip-config"
     subnet_id                     = var.jumphost_subnet_id
     private_ip_address_allocation = "Static"
     private_ip_address            = var.jumphostIpAddress
