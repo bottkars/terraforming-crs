@@ -75,5 +75,25 @@ module "jumphost" {
   jumphost_subnet_id           = var.create_networks ? module.networks[0].subnet_0_id : var.JumpHost_subnet_id
   resource_group_name          = var.create_common_rg ? module.common_rg[0].resource_group_name : var.ppcr_resource_group_name
   resourcePrefix               = var.resourcePrefix
-  jumphostIpAddress    = cidrhost(var.JumpHost_SubnetAddressSpace, var.jumpHost_MgmtNumber)
+  jumphostIpAddress            = cidrhost(var.JumpHost_SubnetAddressSpace, var.jumpHost_MgmtNumber)
+}
+
+
+module "ddve" {
+  source                            = "./modules/ddve"
+  count                             = var.ddve_count > 0 ? var.ddve_count : 0
+  ddve_instance                     = count.index + 1
+  depends_on                        = [module.networks, module.common_rg]
+  ddve_type                         = var.ddvelist[count.index].ddve_type
+  ddve_version                      = var.ddvelist[count.index].ddve_version
+  ddve_meta_disks                   = var.ddvelist[count.index].ddve_meta_disks
+  ddve_password                     = var.ddve_initial_password
+  ddve_tcp_inbound_rules_Inet       = var.ddve_tcp_inbound_rules_Inet
+  location                          = var.location
+  wan_ip                            = []
+  resourcePrefix                    = var.resourcePrefix
+  replication_subnet_id             = var.create_networks ? module.networks[0].subnet_0_id : var.JumpHost_subnet_id
+  management_subnet_id              = var.create_networks ? module.networks[0].subnet_0_id : var.CR_DDVE_subnet_id
+  ddve_resource_group_name          = var.create_common_rg ? module.common_rg[0].resource_group_name : var.ppcr_resource_group_name
+  ddve_networks_resource_group_name = var.ppcr_networks_resource_group_name
 }
