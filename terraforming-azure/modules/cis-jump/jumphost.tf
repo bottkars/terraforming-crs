@@ -53,7 +53,10 @@ resource "azurerm_virtual_machine" "jumphost" {
     sku       = "cis-windows-server2019-l2-gen1"
     version   = "latest"
   }
-
+  zones = ["1"]
+  tags = {
+    "cr.vault-jump-host.vm": "PPCR Jump Host VM"
+  }
 }
 
 
