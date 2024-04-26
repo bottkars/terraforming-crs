@@ -216,7 +216,7 @@ resource "azurerm_virtual_machine" "ddve" {
   name                             = "${var.resourcePrefix}-${local.ddve_name}"
   location                         = data.azurerm_resource_group.ddve_resource_group.location
   resource_group_name              = data.azurerm_resource_group.ddve_resource_group.name
-  depends_on                       = [azurerm_network_interface.ddve_nic1, azurerm_network_interface.ddve_nic2, azurerm_network_interface_security_group_association.ddve_security_group_nic1, azurerm_network_interface_security_group_association.ddve_security_group_nic2]
+  depends_on                       = [azurerm_network_interface.ddve_nic1, azurerm_network_interface.ddve_nic2 ] #, azurerm_network_interface_security_group_association.ddve_security_group_nic1, azurerm_network_interface_security_group_association.ddve_security_group_nic2]
   network_interface_ids            = [azurerm_network_interface.ddve_nic1.id, azurerm_network_interface.ddve_nic2.id]
   primary_network_interface_id     = azurerm_network_interface.ddve_nic1.id
   vm_size                          = local.ddve_size[var.ddve_type].instance_type
