@@ -1,5 +1,5 @@
 variable "jumphostAdminPassword" {
-  default = "Password123!"
+  default = "Change_Me12345_"
 }
 variable "jumphostAdminUserName" {
   default = "azureuser"
