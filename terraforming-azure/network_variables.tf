@@ -19,3 +19,10 @@ variable "CR_DDVE_SubnetAddressSpace" {
 variable "CR_DDVE_subnet_id" {
   default = null
 }
+
+variable "JumpHost_subnet_id" {
+  default = null
+}
+
+
+
