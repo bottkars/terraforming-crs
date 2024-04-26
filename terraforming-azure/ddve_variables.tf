@@ -43,7 +43,7 @@ variable "ddvelist" {
     {
       "ddve_meta_disks" = [1000, 1000],
       "ddve_type"       = "16 TB DDVE"
-      "ddve_version"    = "7.13.020"
+      "ddve_version"    = "7.13.0020.MSDN"
     },
     {
       "ddve_meta_disks" : [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
