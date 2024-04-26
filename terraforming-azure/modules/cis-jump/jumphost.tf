@@ -22,7 +22,7 @@ resource "azurerm_virtual_machine" "jumphost" {
   resource_group_name              = data.azurerm_resource_group.jumphost_resource_group.name
   location                         = data.azurerm_resource_group.jumphost_resource_group.location
   depends_on                       = [azurerm_network_interface.jumphost_nic, azurerm_storage_account.jumphost_diag_storage_account]
-  network_interface_ids            = [azurerm_network_interface.jumphost_nic]
+  network_interface_ids            = [azurerm_network_interface.jumphost_nic.id]
   vm_size                       = local.jumphostVirtualMachineSize
   delete_os_disk_on_termination = "true"
   storage_os_disk {

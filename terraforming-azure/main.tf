@@ -46,7 +46,7 @@ module "networks" {
   networks_resource_group_name  = var.ppcr_networks_resource_group_name
   virtual_network_address_space = var.vnetAddressSpace
   location                      = var.location
-  Subnet0AddressSpace           = var.JumpHostSubnetAddressSpace
+  Subnet0AddressSpace           = var.JumpHost_SubnetAddressSpace
   Subnet1AddressSpace           = var.CR_DDVE_SubnetAddressSpace
 }
 
@@ -75,5 +75,5 @@ module "jumphost" {
   jumphost_subnet_id           = var.create_networks ? module.networks[0].subnet_0_id : var.JumpHost_subnet_id
   resource_group_name          = var.create_common_rg ? module.common_rg[0].resource_group_name : var.ppcr_resource_group_name
   resourcePrefix               = var.resourcePrefix
-  jumphostIpAddress    = cidrhost(var.JumpHostSubnetAddressSpace, var.jumpHost_MgmtNumber)
+  jumphostIpAddress    = cidrhost(var.JumpHost_SubnetAddressSpace, var.jumpHost_MgmtNumber)
 }
