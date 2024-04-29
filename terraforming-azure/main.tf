@@ -92,6 +92,7 @@ module "ddve" {
   location                          = var.location
   wan_ip                            = []
   resourcePrefix                    = var.resourcePrefix
+  ReplicationIpAddress              = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_ReplNumber)
   replication_subnet_id             = var.create_networks ? module.networks[0].subnet_0_id : var.JumpHost_subnet_id
   management_subnet_id              = var.create_networks ? module.networks[0].subnet_0_id : var.CR_DDVE_subnet_id
   ddve_resource_group_name          = var.create_common_rg ? module.common_rg[0].resource_group_name : var.ppcr_resource_group_name

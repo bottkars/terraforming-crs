@@ -74,7 +74,9 @@ variable "public_ip" {
   default = "false"
 }
 
-
+variable "ReplicationIpAddress" {
+  
+}
 
 variable "ddve_type" {
   default = "16 TB DDVE"

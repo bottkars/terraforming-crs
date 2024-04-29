@@ -31,11 +31,8 @@ variable "ddve_networks_resource_group_name" {
   type        = string
   default     = null
 }
-
-variable "ddve_public_ip" {
-  type        = string
-  default     = "false"
-  description = "Enable Public IP on Datadomain Network Interface"
+variable "ddve_ReplNumber" {
+  default = 12
 }
 
 variable "ddvelist" {

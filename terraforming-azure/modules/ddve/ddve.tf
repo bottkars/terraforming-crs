@@ -201,7 +201,9 @@ resource "azurerm_network_interface" "ddve_nic2" {
   ip_configuration {
     name                          = "${var.resourcePrefix}-${local.ddve_name}-ip-config1"
     subnet_id                     = var.replication_subnet_id
-    private_ip_address_allocation = "Dynamic"
+    private_ip_address_allocation = "Static"
+    private_ip_address            = var.ReplicationIpAddress
+    private_ip_address_version    = "IPv4"
   }
 }
 resource "azurerm_public_ip" "publicip" {
