@@ -99,7 +99,7 @@ data "azurerm_resource_group" "ddve_resource_group" {
 
 
 data "http" "myip" {
-  url = "https://ipv4.icanhazip.com"
+  url = "https://v4.ident.me"
 }
 
 
