@@ -98,6 +98,9 @@ variable "replication_subnet_id" {
 variable "dns_zone_name" {
   default = ""
 }
+variable "jumphostIpAddress" {
+}
 
-
+variable "PPCR_MgmtIpAddress" {
+}
 

@@ -99,6 +99,9 @@ module "ddve" {
   resourcePrefix                    = var.resourcePrefix
   DataDomainMgmtIpAddress           = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_MgmtNumber)
   ReplicationIpAddress              = cidrhost(var.JumpHost_SubnetAddressSpace, var.ddve_ReplNumber)
+    jumphostIpAddress            = cidrhost(var.JumpHost_SubnetAddressSpace, var.jumpHost_MgmtNumber)
+ # ProductionClientIpAddress    = var.ProductionClientIpAddress
+  PPCR_MgmtIpAddress           = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.PPCR_MgmtNumber)
   replication_subnet_id             = var.create_networks ? module.networks[0].subnet_0_id : var.JumpHost_subnet_id
   management_subnet_id              = var.create_networks ? module.networks[0].subnet_0_id : var.CR_DDVE_subnet_id
   ddve_resource_group_name          = var.create_common_rg ? module.common_rg[0].resource_group_name : var.ppcr_resource_group_name
