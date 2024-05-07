@@ -12,9 +12,14 @@ variable "CR_DDVE_subnet_id" {
 
 variable "PPCR_MgmtIpAddress" {
 }
-
+variable "jumphostIpAddress" {
+}
 variable "networks_resource_group_name" {
 }
 
 variable "resource_group_name" {
+}
+
+variable "DataDomainMgmtIpAddress" {
+  
 }

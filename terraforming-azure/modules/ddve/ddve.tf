@@ -190,8 +190,9 @@ resource "azurerm_network_interface" "ddve_nic1" {
     primary                       = "true"
     name                          = "${var.resourcePrefix}-${local.ddve_name}-ip-config"
     subnet_id                     = var.management_subnet_id
-    private_ip_address_allocation = "Dynamic"
-    public_ip_address_id          = var.public_ip == "true" ? azurerm_public_ip.publicip.0.id : null
+    private_ip_address_allocation = "Static"
+    private_ip_address            = var.DataDomainMgmtIpAddress
+    private_ip_address_version    = "IPv4"
   }
 }
 resource "azurerm_network_interface" "ddve_nic2" {
