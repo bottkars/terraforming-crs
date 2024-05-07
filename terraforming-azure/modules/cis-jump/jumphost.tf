@@ -55,7 +55,7 @@ resource "azurerm_virtual_machine" "jumphost" {
   }
   zones = ["1"]
   tags = {
-    "cr.vault-jump-host.vm": "PPCR Jump Host VM"
+    "cr.vault-jump-host.vm" : "PPCR Jump Host VM"
   }
 }
 
@@ -88,5 +88,6 @@ resource "azurerm_storage_account" "jumphost_diag_storage_account" {
   }
   tags = {
     vm = "${var.resourcePrefix}-CR-VM"
+    "cr.vault-jump-host.vm" : "PPCR Jump Host VM"
   }
 }

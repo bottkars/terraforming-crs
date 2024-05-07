@@ -125,16 +125,16 @@ resource "random_string" "fqdn_name" {
   upper   = false
 }
 resource "azurerm_storage_account" "ddve_diag_storage_account" {
-  name                     = "${var.ddve_instance}diag${random_string.storage_account_name.result}"
-  resource_group_name      = data.azurerm_resource_group.ddve_resource_group.name
-  location                 = data.azurerm_resource_group.ddve_resource_group.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-  min_tls_version = "TLS1_2"
+  name                      = "${var.ddve_instance}diag${random_string.storage_account_name.result}"
+  resource_group_name       = data.azurerm_resource_group.ddve_resource_group.name
+  location                  = data.azurerm_resource_group.ddve_resource_group.location
+  account_tier              = "Standard"
+  account_replication_type  = "LRS"
+  min_tls_version           = "TLS1_2"
   enable_https_traffic_only = true
   network_rules {
     default_action             = "Deny"
-    ip_rules = [chomp(data.http.myip.response_body)]
+    ip_rules                   = [chomp(data.http.myip.response_body)]
     virtual_network_subnet_ids = [var.management_subnet_id]
   }
   tags = {
@@ -144,20 +144,20 @@ resource "azurerm_storage_account" "ddve_diag_storage_account" {
 }
 
 resource "azurerm_storage_account" "ddve_atos" {
-  name                     = "${var.ddve_instance}atos${random_string.storage_account_name.result}"
-  resource_group_name      = data.azurerm_resource_group.ddve_resource_group.name
-  location                 = data.azurerm_resource_group.ddve_resource_group.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-  min_tls_version = "TLS1_2"
+  name                      = "${var.ddve_instance}atos${random_string.storage_account_name.result}"
+  resource_group_name       = data.azurerm_resource_group.ddve_resource_group.name
+  location                  = data.azurerm_resource_group.ddve_resource_group.location
+  account_tier              = "Standard"
+  account_replication_type  = "LRS"
+  min_tls_version           = "TLS1_2"
   enable_https_traffic_only = true
   network_rules {
     default_action             = "Deny"
-    ip_rules = [chomp(data.http.myip.response_body)]
+    ip_rules                   = [chomp(data.http.myip.response_body)]
     virtual_network_subnet_ids = [var.management_subnet_id]
   }
   tags = {
-
+    "cr.vault-storage.account" : "PPCR Storage Account"
   }
 }
 
@@ -207,19 +207,12 @@ resource "azurerm_network_interface" "ddve_nic2" {
     private_ip_address_version    = "IPv4"
   }
 }
-resource "azurerm_public_ip" "publicip" {
-  count               = var.public_ip == "true" ? 1 : 0
-  name                = "${var.resourcePrefix}-${local.ddve_name}-pip"
-  location            = var.location
-  resource_group_name = data.azurerm_resource_group.ddve_networks_resource_group.name
-  domain_name_label   = "ppdd-${random_string.fqdn_name.result}"
-  allocation_method   = "Dynamic"
-}
+
 resource "azurerm_virtual_machine" "ddve" {
   name                             = "${var.resourcePrefix}-${local.ddve_name}"
   location                         = data.azurerm_resource_group.ddve_resource_group.location
   resource_group_name              = data.azurerm_resource_group.ddve_resource_group.name
-  depends_on                       = [azurerm_network_interface.ddve_nic1, azurerm_network_interface.ddve_nic2 ] #, azurerm_network_interface_security_group_association.ddve_security_group_nic1, azurerm_network_interface_security_group_association.ddve_security_group_nic2]
+  depends_on                       = [azurerm_network_interface.ddve_nic1, azurerm_network_interface.ddve_nic2] #, azurerm_network_interface_security_group_association.ddve_security_group_nic1, azurerm_network_interface_security_group_association.ddve_security_group_nic2]
   network_interface_ids            = [azurerm_network_interface.ddve_nic1.id, azurerm_network_interface.ddve_nic2.id]
   primary_network_interface_id     = azurerm_network_interface.ddve_nic1.id
   vm_size                          = local.ddve_size[var.ddve_type].instance_type
@@ -285,6 +278,6 @@ resource "azurerm_virtual_machine" "ddve" {
   }
 
   tags = {
-    environment = var.deployment
+    "cr.vault.-ddve.vm": "PPCR DDVE VM"
   }
 }
