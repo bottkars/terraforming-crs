@@ -18,15 +18,8 @@ value = azurerm_storage_container.atos.name
 }
 
 
-output "ddve_public_fqdn" {
-  value = length(azurerm_public_ip.publicip) > 0 ? azurerm_public_ip.publicip[0].fqdn : ""
-}
-
 output "ddve_private_ip_address" {
   value = azurerm_network_interface.ddve_nic1.private_ip_address
-}
-output "ddve_public_ip_address" {
-  value = length(azurerm_public_ip.publicip) > 0 ? azurerm_public_ip.publicip[0].ip_address : ""
 }
 #output "private_fqdn" {
 #  sensitive = false
