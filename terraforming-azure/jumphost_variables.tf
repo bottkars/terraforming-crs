@@ -9,3 +9,6 @@ variable "jumphost_resource_group_name" {
 variable "jumpHost_MgmtNumber" {
   default = 10
 }
+variable "ProductionClientIpAddress" {
+  
+}
