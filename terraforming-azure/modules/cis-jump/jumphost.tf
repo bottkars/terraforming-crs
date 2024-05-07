@@ -57,6 +57,11 @@ resource "azurerm_virtual_machine" "jumphost" {
   tags = {
     "cr.vault-jump-host.vm" : "PPCR Jump Host VM"
   }
+    boot_diagnostics {
+    enabled     = "true"
+    storage_uri = azurerm_storage_account.jumphost_diag_storage_account.primary_blob_endpoint
+  }
+
 }
 
 

@@ -62,7 +62,6 @@ resource "azurerm_virtual_machine" "ppcr" {
   }
   identity {
     type = "SystemAssigned"
-    #    identity_ids = [azurerm_user_assigned_identity.storage.id]
   }
 
   boot_diagnostics {
@@ -104,4 +103,10 @@ resource "azurerm_storage_account" "ppcr_diag_storage_account" {
   tags = {
     vm = "${var.resourcePrefix}-CR-VM"
   }
+}
+
+resource "azurerm_role_assignment" "ppcr_role" {
+  scope                = data.azurerm_resource_group.ppcr_resource_group.id 
+  role_definition_name = "Contributor"
+  principal_id         = azurerm_virtual_machine.ppcr.identity[0].principal_id
 }
