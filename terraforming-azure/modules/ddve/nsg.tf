@@ -1,5 +1,5 @@
 resource "azurerm_network_security_group" "ddve_security_group" {
-  name                = "${var.resourcePrefix}-jh-nsg"
+  name                = "${var.resourcePrefix}-dd-nsg"
   location            = data.azurerm_resource_group.ddve_resource_group.location
   resource_group_name = data.azurerm_resource_group.ddve_resource_group.name
 
