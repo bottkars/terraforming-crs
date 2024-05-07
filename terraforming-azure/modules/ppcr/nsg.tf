@@ -11,7 +11,7 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     description                = "Allow SSH and NFS Mount to DDVE from Mgmt Host"
     protocol                   = "TCP"
     source_port_range          = "*"
-    destination_port_ranges     = "22,111,2049,2052,3009"
+    destination_port_ranges     = [ "22","111","2049","2052","3009" ]
     source_address_prefix      = var.PPCR_MgmtIpAddress
     destination_address_prefix = var.DataDomainMgmtIpAddress
   }
@@ -24,7 +24,7 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     description                = "Allow SSH and NFS Mount to Mgmt Host from DDVE"
     protocol                   = "TCP"
     source_port_ranges         = "*"
-    destination_port_ranges     = "22,111,2049,2052,3009"
+    destination_port_ranges     = [ "22","111","2049","2052","3009" ]
     source_address_prefix      = var.DataDomainMgmtIpAddress
     destination_address_prefix = var.PPCR_MgmtIpAddress
   }  
@@ -36,7 +36,7 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     description                = "Allow SSH, REST, Ngninx to Mgmt Host from Jump Host"
     protocol                   = "TCP"
     source_port_range          = "*"
-    destination_port_ranges     = "22,1477,14778,14780"
+    destination_port_ranges     = ["22","1477","14778","14780"]
     source_address_prefix      = var.jumphostIpAddress
     destination_address_prefix = var.PPCR_MgmtIpAddress
   }
