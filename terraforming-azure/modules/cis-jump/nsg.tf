@@ -1,7 +1,7 @@
 resource "azurerm_network_security_group" "jh_security_group" {
   name                = "${var.resourcePrefix}-jh-nsg"
-  resource_group_name = data.azurerm_resource_group.ppcr_resource_group.name
-  location            = data.azurerm_resource_group.ppcr_resource_group.location
+  resource_group_name = data.azurerm_resource_group.jumphost_networks_resource_group.name
+  location            = data.azurerm_resource_group.jumphost_networks_resource_group.location
 
   security_rule {
     name                       = "Allow_RDP_to_Jump_Host_In"
