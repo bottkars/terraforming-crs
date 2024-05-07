@@ -1,4 +1,4 @@
-resource "azurerm_network_security_group" "ddve_security_group" {
+resource "azurerm_network_security_group" "ppcr_security_group" {
   name                = "${var.resourcePrefix}-ppcr-dd-nsg"
   resource_group_name = data.azurerm_resource_group.ppcr_resource_group.name
   location            = data.azurerm_resource_group.ppcr_resource_group.location
@@ -117,4 +117,7 @@ resource "azurerm_network_security_group" "ddve_security_group" {
   }
 }
 
-
+resource "azurerm_network_interface_security_group_association" "ppcr_security_group_nic1" {
+  network_interface_id      = azurerm_network_interface.ppcr_nic.id
+  network_security_group_id = azurerm_network_security_group.ppcr_security_group.id
+}
