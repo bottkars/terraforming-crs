@@ -36,7 +36,7 @@ variable "ddve_ReplNumber" {
 }
 
 variable "ddve_MgmtNumber"    {
-  default = 8
+  default = 4
 }
 
 variable "ddvelist" {
