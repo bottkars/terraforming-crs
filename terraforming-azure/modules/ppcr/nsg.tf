@@ -98,7 +98,7 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     source_port_range          = "*"
     destination_port_range     = "*"
     source_address_prefix      = "*"
-    destination_address_prefix = "A*"
+    destination_address_prefix = "*"
   }
   security_rule {
     name                       = "Deny_All_Outbound"
