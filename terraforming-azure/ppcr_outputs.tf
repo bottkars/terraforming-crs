@@ -12,3 +12,9 @@ output "ppcr_private_ip" {
   value       = module.ppcr.ppcr_private_ip_address
   description = "The private ip address for all ppcr"
 }
+
+
+output "privatelink" {
+  value       = module.ddve.privatelink
+  description = "The private ip address for the Private link"
+}
