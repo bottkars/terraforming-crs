@@ -98,7 +98,7 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
     source_port_range          = "*"
     destination_port_ranges    = ["443"]
     source_address_prefix      = var.DataDomainMgmtIpAddress
-    destination_address_prefix = module.ddve[0].privatelink
+    destination_address_prefix = var.privatelinkip
   }
 
 

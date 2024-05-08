@@ -16,7 +16,8 @@ variable "jumphostIpAddress" {
 }
 variable "networks_resource_group_name" {
 }
-
+variable "privatelinkip" {
+}
 variable "resource_group_name" {
 }
 

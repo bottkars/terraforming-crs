@@ -67,6 +67,7 @@ module "ppcr" {
   PPCR_MgmtIpAddress           = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.PPCR_MgmtNumber)
   jumphostIpAddress            = cidrhost(var.JumpHost_SubnetAddressSpace, var.jumpHost_MgmtNumber)
   DataDomainMgmtIpAddress      = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_MgmtNumber)
+    privatelinkip = module.ddve[0].privatelink
 }
 
 
@@ -99,7 +100,7 @@ module "ddve" {
   resourcePrefix                    = var.resourcePrefix
   DataDomainMgmtIpAddress           = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_MgmtNumber)
   ReplicationIpAddress              = cidrhost(var.JumpHost_SubnetAddressSpace, var.ddve_ReplNumber)
-    jumphostIpAddress            = cidrhost(var.JumpHost_SubnetAddressSpace, var.jumpHost_MgmtNumber)
+  jumphostIpAddress            = cidrhost(var.JumpHost_SubnetAddressSpace, var.jumpHost_MgmtNumber)
  # ProductionClientIpAddress    = var.ProductionClientIpAddress
   PPCR_MgmtIpAddress           = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.PPCR_MgmtNumber)
   replication_subnet_id             = var.create_networks ? module.networks[0].subnet_0_id : var.JumpHost_subnet_id
