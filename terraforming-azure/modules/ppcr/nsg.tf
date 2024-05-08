@@ -98,8 +98,10 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
     source_port_range          = "*"
     destination_port_ranges    = ["443"]
     source_address_prefix      = var.DataDomainMgmtIpAddress
-    destination_address_prefix = "AzureResourceManager"
+    destination_address_prefix = azurerm_private_endpoint.blobendpoint.private_service_connection[0].private_ip_address
   }
+
+
   security_rule {
     name                       = "Deny_All_Inbound"
     priority                   = 4096
