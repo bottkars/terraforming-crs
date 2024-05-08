@@ -89,6 +89,18 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
     destination_address_prefix = "AzureResourceManager"
   }
   security_rule {
+    name                       = "AAllow_DDVE_to_Endpoint_HTTPS_Out"
+    priority                   = 230
+    direction                  = "Outbound"
+    access                     = "Allow"
+    description                = "Allow HTTPS to Endpoint from DDVE"
+    protocol                   = "TCP"
+    source_port_range          = "*"
+    destination_port_ranges    = ["443"]
+    source_address_prefix      = var.DataDomainMgmtIpAddress
+    destination_address_prefix = "AzureResourceManager"
+  }
+  security_rule {
     name                       = "Deny_All_Inbound"
     priority                   = 4096
     direction                  = "Inbound"
