@@ -63,7 +63,7 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     protocol                   = "TCP"
     source_port_range          = "*"
     destination_port_ranges    = ["443"]
-    source_address_prefix      = var.jumphostIpAddress
+    source_address_prefix      = var.PPCR_MgmtIpAddress
     destination_address_prefix = azurerm_private_endpoint.blobendpoint.private_service_connection[0].private_ip_address
   }
 
