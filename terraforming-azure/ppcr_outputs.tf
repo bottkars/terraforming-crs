@@ -15,6 +15,6 @@ output "ppcr_private_ip" {
 
 
 output "privatelink" {
-  value       = module.ddve.privatelink
+  value       = module.ddve[0].privatelink
   description = "The private ip address for the Private link"
 }
