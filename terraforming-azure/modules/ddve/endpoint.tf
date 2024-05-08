@@ -18,5 +18,5 @@ resource "azurerm_private_dns_a_record" "blobservice" {
   zone_name           = "privatelink.blob.core.windows.net"
   resource_group_name = data.azurerm_resource_group.ddve_resource_group.name
   ttl                 = "60"
-  records             = azurerm_private_endpoint.blobendpoint.private_service_connection.private_ip_address
+  records             = azurerm_private_endpoint.blobendpoint.private_service_connection[0].private_ip_address
 }
