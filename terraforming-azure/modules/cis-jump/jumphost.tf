@@ -32,7 +32,7 @@ resource "azurerm_virtual_machine" "jumphost" {
     managed_disk_type = "StandardSSD_LRS"
   }
   os_profile {
-    computer_name  = "${var.resourcePrefix}-CR-VM"
+    computer_name  = "${var.resourcePrefix}-JH-VM"
     admin_username = var.jumphostAdminUserName
     admin_password = var.jumphostAdminPassword
   }
