@@ -5,9 +5,31 @@
 
 
 ```azcli
-az vm image accept-terms --offer=cis-windows-server --plan=cis-windows-server2019-l2-gen1 --publisher=center-for-internet-security-inc#
+az vm image accept-terms --offer=cis-windows-server --plan=cis-windows-server2019-l2-gen1 --publisher=center-for-internet-security-inc
+```
+
+```azcli
+az vm image accept-terms --urn=center-for-internet-security-inc:cis-windows-server:cis-windows-server2019
+-l2-gen1:3.0.1
 ```
 
 
-az vm image accept-terms --urn=center-for-internet-security-inc:cis-windows-server:cis-windows-server2019
--l2-gen1:3.0.1
+## Usage
+
+
+notepad .\.ssh\ppcr
+ssh -i .\.ssh\ppcr azureuser@10.0.5.30
+scp -i .\.ssh\ppcr azureuser@10.0.5.30:/home/azureuser/azure_cr/cis-regedit.exe C:/Users/azureuser/Desktop
+
+
+
+admib
+
+reg delete "HKEY_LOCAL_MACHINE\Software\Microsoft\Terminal Server” /v “DisableDriveRedirection"  /f
+reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal Services" /v fDisableCdm  /f
+
+
+
+
+cd C:/Users/azureuser/Desktop
+.\cis-regedit.exe enableFileTransfer c
