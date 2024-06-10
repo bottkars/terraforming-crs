@@ -69,9 +69,12 @@ resource "azurerm_virtual_machine" "ppcr" {
     storage_uri = azurerm_storage_account.ppcr_diag_storage_account.primary_blob_endpoint
   }
   zones = ["1"]
-  tags = {
-    "cr.vault-mgmt-host.account" : "PPCR Mgmt Host VM"
-  }
+  tags = merge(
+    var.customTags,
+    {
+      "cr.vault-mgmt-host.account" : "PPCR Mgmt Host VM"
+    }
+  )
 }
 
 resource "azurerm_network_interface" "ppcr_nic" {
@@ -89,24 +92,27 @@ resource "azurerm_network_interface" "ppcr_nic" {
 
 
 resource "azurerm_storage_account" "ppcr_diag_storage_account" {
-  name                     = "vmdiag${random_string.storage_account_name.result}"
-  resource_group_name              = data.azurerm_resource_group.ppcr_resource_group.name
-  location                         = data.azurerm_resource_group.ppcr_resource_group.location
-  account_tier             = "Standard"
-  account_replication_type = "LRS"
-  min_tls_version = "TLS1_2"
+  name                      = "vmdiag${random_string.storage_account_name.result}"
+  resource_group_name       = data.azurerm_resource_group.ppcr_resource_group.name
+  location                  = data.azurerm_resource_group.ppcr_resource_group.location
+  account_tier              = "Standard"
+  account_replication_type  = "LRS"
+  min_tls_version           = "TLS1_2"
   enable_https_traffic_only = true
   network_rules {
     default_action             = "Deny"
     virtual_network_subnet_ids = [var.CR_DDVE_subnet_id]
   }
-  tags = {
-    vm = "${var.resourcePrefix}-CR-VM"
-  }
+  tags = merge(
+    var.customTags,
+    {
+      vm = "${var.resourcePrefix}-CR-VM"
+    }
+  )
 }
 
 resource "azurerm_role_assignment" "ppcr_role" {
-  scope                = data.azurerm_resource_group.ppcr_resource_group.id 
+  scope                = data.azurerm_resource_group.ppcr_resource_group.id
   role_definition_name = "Contributor"
   principal_id         = azurerm_virtual_machine.ppcr.identity[0].principal_id
 }

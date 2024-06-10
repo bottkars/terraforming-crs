@@ -126,9 +126,11 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-    tags = {
+      tags = merge(
+    var.customTags,
+     {
     "cr.private-subnet2.sg" = "Private Subnet 2 NSG"
-  }
+  })
 }
 
 resource "azurerm_network_interface_security_group_association" "ppcr_security_group_nic1" {

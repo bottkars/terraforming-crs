@@ -24,3 +24,7 @@ variable "azure_environment" {
 variable "resourcePrefix" {
   default = "PPCR"
 }
+
+variable "customTags" {
+  default = {}
+}

@@ -1,7 +1,7 @@
 resource "azurerm_network_security_group" "jh_security_group" {
   name                = "${var.resourcePrefix}-jh-nsg"
-  resource_group_name       = data.azurerm_resource_group.jumphost_resource_group.name
-  location                  = data.azurerm_resource_group.jumphost_resource_group.location
+  resource_group_name = data.azurerm_resource_group.jumphost_resource_group.name
+  location            = data.azurerm_resource_group.jumphost_resource_group.location
 
   security_rule {
     name                       = "Allow_RDP_to_Jump_Host_In"
@@ -70,9 +70,11 @@ resource "azurerm_network_security_group" "jh_security_group" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-  tags = {
-    "cr.vault-jump-host.sg" : "PPCR Jump Host NSG"
-  }
+  tags = merge(
+    var.customTags,
+    {
+      "cr.vault-jump-host.sg" : "PPCR Jump Host NSG"
+  })
 }
 
 resource "azurerm_network_interface_security_group_association" "jh_security_group_nic1" {

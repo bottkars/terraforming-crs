@@ -28,3 +28,6 @@ variable "resource_group_name" {
 }
 variable "PPCR_MgmtIpAddress" {
 }
+variable "customTags" {
+  default = {}
+}

@@ -54,10 +54,13 @@ resource "azurerm_virtual_machine" "jumphost" {
     version   = "latest"
   }
   zones = ["1"]
-  tags = {
-    "cr.vault-jump-host.vm" : "PPCR Jump Host VM"
-  }
-    boot_diagnostics {
+  tags = merge(
+    var.customTags,
+    {
+      "cr.vault-jump-host.vm" : "PPCR Jump Host VM"
+    }
+  )
+  boot_diagnostics {
     enabled     = "true"
     storage_uri = azurerm_storage_account.jumphost_diag_storage_account.primary_blob_endpoint
   }
@@ -91,8 +94,10 @@ resource "azurerm_storage_account" "jumphost_diag_storage_account" {
     default_action             = "Deny"
     virtual_network_subnet_ids = [var.jumphost_subnet_id]
   }
-  tags = {
-    vm = "${var.resourcePrefix}-CR-VM"
-    "cr.vault-jump-host.vm" : "PPCR Jump Host VM"
-  }
+  tags = merge(
+    var.customTags,
+    {
+      vm = "${var.resourcePrefix}-CR-VM"
+      "cr.vault-jump-host.vm" : "PPCR Jump Host VM"
+  })
 }

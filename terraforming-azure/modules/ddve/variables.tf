@@ -104,3 +104,6 @@ variable "jumphostIpAddress" {
 variable "PPCR_MgmtIpAddress" {
 }
 
+variable "customTags" {
+  default = {}
+}

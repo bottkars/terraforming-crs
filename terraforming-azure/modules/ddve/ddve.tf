@@ -137,10 +137,12 @@ resource "azurerm_storage_account" "ddve_diag_storage_account" {
     ip_rules                   = [chomp(data.http.myip.response_body)]
     virtual_network_subnet_ids = [var.management_subnet_id]
   }
-  tags = {
+    tags = merge(
+    var.customTags,
+     {
     environment = var.deployment
     autodelete  = var.autodelete
-  }
+  })
 }
 
 resource "azurerm_storage_account" "ddve_atos" {
@@ -156,9 +158,11 @@ resource "azurerm_storage_account" "ddve_atos" {
     ip_rules                   = [chomp(data.http.myip.response_body)]
     virtual_network_subnet_ids = [var.management_subnet_id]
   }
-  tags = {
+    tags = merge(
+    var.customTags,
+     {
     "cr.vault-storage.account" : "PPCR Storage Account"
-  }
+  })
 }
 
 resource "azurerm_storage_container" "atos" {
@@ -277,7 +281,9 @@ resource "azurerm_virtual_machine" "ddve" {
     storage_uri = azurerm_storage_account.ddve_diag_storage_account.primary_blob_endpoint
   }
 
-  tags = {
+    tags = merge(
+    var.customTags,
+     {
     "cr.vault.-ddve.vm": "PPCR DDVE VM"
-  }
+  })
 }

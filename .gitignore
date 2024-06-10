@@ -1,1 +1,3 @@
-terraforming-azure/terraform.tfvars.json
+**/terraform.tfvars.json
+**/.terraform
+**/.terraform.lock.hcl

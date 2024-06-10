@@ -22,3 +22,6 @@ variable "Subnet0AddressSpace" {
 variable "Subnet1AddressSpace" {
 
 }
+variable "customTags" {
+  default = {}
+}

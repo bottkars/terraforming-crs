@@ -8,4 +8,10 @@ resource "azurerm_virtual_network" "virtual_network" {
   resource_group_name = data.azurerm_resource_group.networks_resource_group.name
   address_space       = var.virtual_network_address_space
   location            = var.location
+    tags = merge(
+    var.customTags,
+    {
+
+    }
+  )
 }

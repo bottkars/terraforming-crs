@@ -91,9 +91,11 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-  tags = {
+    tags = merge(
+    var.customTags,
+     {
     "cr.vault-ddve.sg": "DDVE Interface NSG"
-  }
+  })
 }
 
 resource "azurerm_network_interface_security_group_association" "jh_security_group_nic1" {
