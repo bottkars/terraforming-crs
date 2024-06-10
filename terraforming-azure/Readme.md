@@ -16,10 +16,16 @@ az vm image accept-terms --urn=center-for-internet-security-inc:cis-windows-serv
 
 ## Usage
 
+```powershell
+notepad .\.ssh\ppcr_key.
+ssh -i .\.ssh\ppcr_key azureuser@10.0.5.30
+scp -i .\.ssh\ppcr_key azureuser@10.0.5.30:/home/azureuser/azure_cr/cis-regedit.exe C:/Users/azureuser/Desktop
 
-notepad .\.ssh\ppcr
-ssh -i .\.ssh\ppcr azureuser@10.0.5.30
-scp -i .\.ssh\ppcr azureuser@10.0.5.30:/home/azureuser/azure_cr/cis-regedit.exe C:/Users/azureuser/Desktop
+
+
+cd C:/Users/azureuser/Desktop
+.\cis-regedit.exe enableFileTransfer c
+```
 
 
 
@@ -30,6 +36,3 @@ reg delete "HKEY_LOCAL_MACHINE\SOFTWARE\Policies\Microsoft\Windows NT\Terminal S
 
 
 
-
-cd C:/Users/azureuser/Desktop
-.\cis-regedit.exe enableFileTransfer c
