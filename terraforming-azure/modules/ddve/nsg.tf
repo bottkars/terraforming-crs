@@ -54,7 +54,7 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     destination_address_prefix = var.DataDomainMgmtIpAddress
   }
 
-    security_rule {
+  security_rule {
     name                       = "Allow_DDVE_to_Endpoint_HTTPS_Ou"
     priority                   = 210
     direction                  = "Outbound"
@@ -91,14 +91,24 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     source_address_prefix      = "*"
     destination_address_prefix = "*"
   }
-    tags = merge(
+  tags = merge(
     var.customTags,
-     {
-    "cr.vault-ddve.sg": "DDVE Interface NSG"
+    {
+      "cr.vault-ddve.sg" : "DDVE Interface NSG"
   })
 }
 
 resource "azurerm_network_interface_security_group_association" "jh_security_group_nic1" {
   network_interface_id      = azurerm_network_interface.ddve_nic1.id
+  network_security_group_id = azurerm_network_security_group.ddve_security_group.id
+}
+
+resource "azurerm_network_interface_security_group_association" "ddve_security_group_nic2" {
+  network_interface_id      = azurerm_network_interface.ddve_nic2.id
+  network_security_group_id = azurerm_network_security_group.ddve_security_group.id
+}
+
+resource "azurerm_subnet_network_security_group_association" "ddve_security_group_management_net" {
+  subnet_id                 = var.management_subnet_id
   network_security_group_id = azurerm_network_security_group.ddve_security_group.id
 }
