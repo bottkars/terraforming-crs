@@ -100,3 +100,6 @@ variable "ddve_type" {
   }
 }
 
+variable "vnet_id" {
+  default = ""
+}

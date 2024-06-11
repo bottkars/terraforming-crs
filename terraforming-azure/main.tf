@@ -116,5 +116,6 @@ module "ddve" {
   ddve_resource_group_name          = var.create_common_rg ? module.common_rg[0].resource_group_name : var.ppcr_resource_group_name
   ddve_networks_resource_group_name = var.ppcr_networks_resource_group_name
   customTags                        = var.customTags
+  vnet_id = var.create_networks ? module.networks[0].vnet_id : var.vnet_id
 
 }

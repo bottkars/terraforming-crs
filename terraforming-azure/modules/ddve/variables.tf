@@ -88,7 +88,9 @@ variable "ddve_type" {
 variable "ddve_version" {
   default = "7.9.000"
 }
-
+variable "vnet_id" {
+  default = ""
+}
 variable "management_subnet_id" {
   default = ""
 }
