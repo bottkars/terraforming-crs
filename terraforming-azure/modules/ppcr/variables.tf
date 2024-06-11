@@ -27,3 +27,6 @@ variable "DataDomainMgmtIpAddress" {
 variable "customTags" {
   default = {}
 }
+variable "PPCR_Image_Id" {
+  default = null
+}

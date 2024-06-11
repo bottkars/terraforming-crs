@@ -73,6 +73,7 @@ module "ppcr" {
   DataDomainMgmtIpAddress      = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_MgmtNumber)
   privatelinkip                = module.ddve[0].privatelink
   customTags                   = var.customTags
+  PPCR_Image_Id                = var.PPCR_Image_Id
 
 }
 
