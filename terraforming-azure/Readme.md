@@ -13,14 +13,17 @@ az vm image accept-terms --urn=center-for-internet-security-inc:cis-windows-serv
 -l2-gen1:3.0.1
 ```
 
-
+terraform output ppcr_ssh_private_key
 ## Usage
 
 ```powershell
+cd $HOME
+mkdir -p .ssh
 notepad .\.ssh\ppcr_key.
-ssh -i .\.ssh\ppcr_key azureuser@10.0.5.30
-scp -i .\.ssh\ppcr_key azureuser@10.0.5.30:/home/azureuser/azure_cr/cis-regedit.exe C:/Users/azureuser/Desktop
+mv .\.ssh\ppcr_key.txt .\.ssh\ppcr_key
 
+scp -i .\.ssh\ppcr_key azureuser@10.0.5.30:/home/azureuser/azure_cr/cis-regedit.exe C:/Users/azureuser
+ssh -i .\.ssh\ppcr_key azureuser@10.0.5.30
 
 
 cd C:/Users/azureuser/Desktop
