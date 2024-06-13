@@ -1,7 +1,7 @@
 resource "azurerm_private_endpoint" "blobendpoint" {
   name                = "${var.resourcePrefix}-privateendpoint"
-  location            = data.azurerm_resource_group.ddve_resource_group.location
-  resource_group_name = data.azurerm_resource_group.ddve_resource_group.name
+  location            = data.azurerm_resource_group.ddve_networks_resource_group.location
+  resource_group_name = data.azurerm_resource_group.ddve_networks_resource_group.name
   subnet_id           = var.management_subnet_id
 
   private_service_connection {
@@ -19,7 +19,7 @@ resource "azurerm_private_endpoint" "blobendpoint" {
 
 resource "azurerm_private_dns_zone" "ppcr-dns-zone" {
   name                = "privatelink.blob.core.windows.net"
-  resource_group_name = data.azurerm_resource_group.ddve_resource_group.name
+  resource_group_name = data.azurerm_resource_group.ddve_networks_resource_group.name
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "ppcr-network-link" {
@@ -30,8 +30,8 @@ resource "azurerm_private_dns_zone_virtual_network_link" "ppcr-network-link" {
 }
 
 resource "azurerm_private_dns_a_record" "blobservice" {
-  name                = "crsprivatelink.blob.core.windows.net"
-  zone_name           = "crsprivatelink.blob.core.windows.net"
+  name                = azurerm_storage_account.ddve_atos.name
+  zone_name           = "privatelink.blob.core.windows.net"
   resource_group_name = data.azurerm_resource_group.ddve_resource_group.name
   ttl                 = "10"
   records             = [ azurerm_private_endpoint.blobendpoint.private_service_connection[0].private_ip_address ]
