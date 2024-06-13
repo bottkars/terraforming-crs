@@ -11,10 +11,10 @@ resource "azurerm_private_endpoint" "blobendpoint" {
     subresource_names              = ["blob"]
   }
 
-  private_dns_zone_group {
-    name                 = "${var.resourcePrefix}-dns-zone-group"
-    private_dns_zone_ids = [azurerm_private_dns_zone.ppcr-dns-zone.id]
-  }
+ # private_dns_zone_group {
+ #   name                 = "${var.resourcePrefix}-dns-zone-group"
+ #   private_dns_zone_ids = [azurerm_private_dns_zone.ppcr-dns-zone.id]
+ # }
 }
 
 #resource "azurerm_private_dns_zone" "ppcr-dns-zone" {
@@ -22,12 +22,12 @@ resource "azurerm_private_endpoint" "blobendpoint" {
 #  resource_group_name = data.azurerm_resource_group.ddve_resource_group.name
 #}
 
-resource "azurerm_private_dns_zone_virtual_network_link" "ppcr-network-link" {
-  name                  = "${var.resourcePrefix}-link"
-  resource_group_name   = data.azurerm_resource_group.ddve_resource_group.name
-  private_dns_zone_name = azurerm_private_dns_zone.ppcr-dns-zone.name
-  virtual_network_id    = var.vnet_id
-}
+#resource "azurerm_private_dns_zone_virtual_network_link" "ppcr-network-link" {
+#  name                  = "${var.resourcePrefix}-link"
+#  resource_group_name   = data.azurerm_resource_group.ddve_resource_group.name
+#  private_dns_zone_name = azurerm_private_dns_zone.ppcr-dns-zone.name
+#  virtual_network_id    = var.vnet_id
+#}
 
 #resource "azurerm_private_dns_a_record" "blobservice" {
 #  name                = "crsprivatelink.blob.core.windows.net"
