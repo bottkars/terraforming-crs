@@ -20,6 +20,7 @@ resource "azurerm_private_endpoint" "blobendpoint" {
 resource "azurerm_private_dns_zone" "ppcr-dns-zone" {
   name                = "crsprivatelink.blob.core.windows.net"
   resource_group_name = data.azurerm_resource_group.ddve_resource_group.name
+  depends_on = [ azurerm_private_endpoint.blobendpoint ]
 }
 
 resource "azurerm_private_dns_zone_virtual_network_link" "ppcr-network-link" {

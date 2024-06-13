@@ -77,6 +77,22 @@ module "ppcr" {
 
 }
 
+module "cs" {
+  source                       = "./modules/cybersense"
+  count                        = var.create_cybersense ? 1 : 0
+  depends_on                   = [module.common_rg]
+  networks_resource_group_name = var.ppcr_networks_resource_group_name
+  CR_DDVE_subnet_id            = var.create_networks ? module.networks[0].subnet_0_id : var.CR_DDVE_subnet_id
+  resource_group_name          = var.create_common_rg ? module.common_rg[0].resource_group_name : var.ppcr_resource_group_name
+  resourcePrefix               = var.resourcePrefix
+  PPCR_MgmtIpAddress           = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.PPCR_MgmtNumber)
+  CS_IpAddress                 = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.CS_MgmtNumber)
+  jumphostIpAddress            = cidrhost(var.JumpHost_SubnetAddressSpace, var.jumpHost_MgmtNumber)
+  DataDomainMgmtIpAddress      = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_MgmtNumber)
+  privatelinkip                = module.ddve[0].privatelink
+  customTags                   = var.customTags
+  CS_Image_Id                  = var.CS_Image_Id
+}
 
 module "jumphost" {
   source                       = "./modules/cis-jump"
@@ -116,6 +132,6 @@ module "ddve" {
   ddve_resource_group_name          = var.create_common_rg ? module.common_rg[0].resource_group_name : var.ppcr_resource_group_name
   ddve_networks_resource_group_name = var.ppcr_networks_resource_group_name
   customTags                        = var.customTags
-  vnet_id = var.create_networks ? module.networks[0].vnet_id : var.vnet_id
+  vnet_id                           = var.create_networks ? module.networks[0].vnet_id : var.vnet_id
 
 }

@@ -28,4 +28,6 @@ variable "resourcePrefix" {
 variable "customTags" {
   default = {}
 }
-
+variable "create_cybersense" {
+  default = false
+}

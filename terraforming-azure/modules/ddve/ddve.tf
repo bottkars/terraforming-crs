@@ -169,6 +169,7 @@ resource "azurerm_storage_container" "atos" {
   name                  = "object"
   storage_account_name  = azurerm_storage_account.ddve_atos.name
   container_access_type = "private"
+  depends_on = [ azurerm_private_endpoint.blobendpoint ]
 }
 
 
