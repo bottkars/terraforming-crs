@@ -17,11 +17,10 @@ resource "azurerm_private_endpoint" "blobendpoint" {
   }
 }
 
-resource "azurerm_private_dns_zone" "ppcr-dns-zone" {
-  name                = "crsprivatelink.blob.core.windows.net"
-  resource_group_name = data.azurerm_resource_group.ddve_resource_group.name
-  depends_on = [ azurerm_private_endpoint.blobendpoint ]
-}
+#resource "azurerm_private_dns_zone" "ppcr-dns-zone" {
+#  name                = "crsprivatelink.blob.core.windows.net"
+#  resource_group_name = data.azurerm_resource_group.ddve_resource_group.name
+#}
 
 resource "azurerm_private_dns_zone_virtual_network_link" "ppcr-network-link" {
   name                  = "${var.resourcePrefix}-link"
@@ -30,13 +29,13 @@ resource "azurerm_private_dns_zone_virtual_network_link" "ppcr-network-link" {
   virtual_network_id    = var.vnet_id
 }
 
-resource "azurerm_private_dns_a_record" "blobservice" {
-  name                = "crsprivatelink.blob.core.windows.net"
-  zone_name           = "crsprivatelink.blob.core.windows.net"
-  resource_group_name = data.azurerm_resource_group.ddve_resource_group.name
-  ttl                 = "10"
-  records             = [ azurerm_private_endpoint.blobendpoint.private_service_connection[0].private_ip_address ]
-}
+#resource "azurerm_private_dns_a_record" "blobservice" {
+#  name                = "crsprivatelink.blob.core.windows.net"
+#  zone_name           = "crsprivatelink.blob.core.windows.net"
+#  resource_group_name = data.azurerm_resource_group.ddve_resource_group.name
+#  ttl                 = "10"
+#  records             = [ azurerm_private_endpoint.blobendpoint.private_service_connection[0].private_ip_address ]
+#}
 
 
 output "privatelink" {
