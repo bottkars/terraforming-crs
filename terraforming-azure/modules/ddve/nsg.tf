@@ -54,7 +54,7 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     destination_address_prefix = var.DataDomainMgmtIpAddress
   }
   security_rule {
-    name              = "Allow_DDVE_replication"
+    name              = "Allow_DDVE_replication_in"
     priority          = 500
     direction         = "Inbound"
     access            = "Allow"
@@ -70,7 +70,7 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     destination_address_prefix = var.ReplicationIpAddress
   }
   security_rule {
-    name              = "Allow_DDVE_replication"
+    name              = "Allow_DDVE_replication_out"
     priority          = 500
     direction         = "Outbound"
     access            = "Allow"
