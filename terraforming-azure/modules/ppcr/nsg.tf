@@ -75,11 +75,11 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
     source_port_range = "*"
     destination_port_ranges = [
 
-      "2051",
+      "2051","3009"
 
     ]
     source_address_prefix      = "10.204.108.137/32"
-    destination_address_prefix = var.ReplicationIpAddress
+    destination_address_prefix = "var.ReplicationIpAddress"
   }
 
   security_rule {
