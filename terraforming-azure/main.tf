@@ -93,7 +93,6 @@ module "cs" {
   customTags                   = var.customTags
   CS_Image_Id                  = var.CS_Image_Id
 }
-
 module "jumphost" {
   source                       = "./modules/cis-jump"
   depends_on                   = [module.common_rg]
