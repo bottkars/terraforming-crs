@@ -108,7 +108,4 @@ resource "azurerm_network_interface_security_group_association" "ddve_security_g
   network_security_group_id = azurerm_network_security_group.ddve_security_group.id
 }
 
-resource "azurerm_subnet_network_security_group_association" "ddve_security_group_management_net" {
-  subnet_id                 = var.management_subnet_id
-  network_security_group_id = azurerm_network_security_group.ddve_security_group.id
-}
+

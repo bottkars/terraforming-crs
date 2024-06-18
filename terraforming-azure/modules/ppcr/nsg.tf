@@ -149,3 +149,8 @@ resource "azurerm_network_interface_security_group_association" "ppcr_security_g
   network_interface_id      = azurerm_network_interface.ppcr_nic.id
   network_security_group_id = azurerm_network_security_group.ppcr_security_group.id
 }
+
+resource "azurerm_subnet_network_security_group_association" "cr_ddve_security_group_management_net" {
+  subnet_id                 = var.CR_DDVE_subnet_id
+  network_security_group_id = azurerm_network_security_group.ppcr_security_group
+}
