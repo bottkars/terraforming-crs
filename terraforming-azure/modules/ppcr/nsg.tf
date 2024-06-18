@@ -36,7 +36,7 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
     description                = "Allow SSH, REST, Ngninx to Mgmt Host from Jump Host"
     protocol                   = "TCP"
     source_port_range          = "*"
-    destination_port_ranges    = ["22", "1477", "14778", "14780"]
+    destination_port_ranges    = ["22", "14777", "14778", "14780"]
     source_address_prefix      = var.jumphostIpAddress
     destination_address_prefix = var.PPCR_MgmtIpAddress
   }

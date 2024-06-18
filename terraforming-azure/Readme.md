@@ -32,6 +32,14 @@ cd C:/Users/azureuser/Desktop
 
 
 
+sudo passwd root
+sudo su -
+/opt/dellemc/cr/bin/crsetup.sh --reset
+
+
+
+
+
 admib
 
 reg delete "HKEY_LOCAL_MACHINE\Software\Microsoft\Terminal Server” /v “DisableDriveRedirection"  /f
