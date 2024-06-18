@@ -53,9 +53,24 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     source_address_prefix      = var.PPCR_MgmtIpAddress
     destination_address_prefix = var.DataDomainMgmtIpAddress
   }
-
   security_rule {
-    name                       = "Allow_DDVE_to_Endpoint_HTTPS_Ou"
+    name              = "Allow_DDVE_replication"
+    priority          = 500
+    direction         = "Inbount"
+    access            = "Allow"
+    description       = "Allow SSH and NFS to DDVE from Mgmt Host"
+    protocol          = "TCP"
+    source_port_range = "*"
+    destination_port_ranges = [
+
+      "2051",
+
+    ]
+    source_address_prefix      = "10.204.108.137/32"
+    destination_address_prefix = var.ReplicationIpAddress
+  }
+  security_rule {
+    name                       = "Allow_DDVE_to_Endpoint_HTTPS_Out"
     priority                   = 210
     direction                  = "Outbound"
     access                     = "Allow"
