@@ -53,6 +53,18 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
     destination_address_prefix = var.DataDomainMgmtIpAddress
   }
   security_rule {
+    name                       = "Allow_Jump_Host_to_CS_Host_Traffic_In"
+    priority                   = 240
+    direction                  = "Inbound"
+    access                     = "Allow"
+    description                = "Allow SSH, REST, Ngninx to Mgmt Host from Jump Host"
+    protocol                   = "TCP"
+    source_port_range          = "*"
+    destination_port_ranges    = ["22", "443"]
+    source_address_prefix      = var.jumphostIpAddress
+    destination_address_prefix = var.PPCR_MgmtIpAddress
+  }
+  security_rule {
     name                       = "Allow_Mgmt_Host_to_DDVE_Out"
     priority                   = 200
     direction                  = "Outbound"
