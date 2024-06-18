@@ -79,18 +79,18 @@ resource "azurerm_network_security_group" "ddve_security_group" {
  #   source_address_prefix      = "*"
  #   destination_address_prefix = "*"
  # }
-  security_rule {
-    name                       = "Deny_All_Outbound"
-    priority                   = 4096
-    direction                  = "Outbound"
-    access                     = "Deny"
-    description                = "Deny All Outbound - Overrides Azure Allow All Default Rule"
-    protocol                   = "*"
-    source_port_range          = "*"
-    destination_port_range     = "*"
-    source_address_prefix      = "*"
-    destination_address_prefix = "*"
-  }
+# security_rule {
+#    name                       = "Deny_All_Outbound"
+#    priority                   = 4096
+#    direction                  = "Outbound"
+#    access                     = "Deny"
+#    description                = "Deny All Outbound - Overrides Azure Allow All Default Rule"
+#    protocol                   = "*"
+#    source_port_range          = "*"
+#    destination_port_range     = "*"
+#    source_address_prefix      = "*"
+#    destination_address_prefix = "*"
+#  }
   tags = merge(
     var.customTags,
     {
