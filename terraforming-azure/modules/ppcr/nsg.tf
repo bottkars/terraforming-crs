@@ -79,7 +79,7 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
 
     ]
     source_address_prefix      = "10.204.108.137/32"
-    destination_address_prefix = "var.ReplicationIpAddress"
+    destination_address_prefix = var.ReplicationIpAddress
   }
 
   security_rule {
