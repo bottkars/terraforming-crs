@@ -56,7 +56,7 @@ resource "azurerm_network_security_group" "ddve_security_group" {
   security_rule {
     name              = "Allow_DDVE_replication"
     priority          = 500
-    direction         = "Inbount"
+    direction         = "Inbound"
     access            = "Allow"
     description       = "Allow SSH and NFS to DDVE from Mgmt Host"
     protocol          = "TCP"
