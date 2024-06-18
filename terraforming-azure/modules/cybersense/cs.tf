@@ -8,10 +8,10 @@ data "azurerm_resource_group" "cs_resource_group" {
   name = var.resource_group_name
 }
 
-#data "template_file" "cloudinit" {
-#  template = file("${path.module}/cloudinit.tpl")
-#
-#}
+data "template_file" "cloudinit" {
+  template = file("${path.module}/cloudinit.tpl")
+
+}
 
 resource "tls_private_key" "cs" {
   algorithm = "RSA"
