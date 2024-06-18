@@ -70,6 +70,7 @@ module "ppcr" {
   resourcePrefix               = var.resourcePrefix
   PPCR_MgmtIpAddress           = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.PPCR_MgmtNumber)
   jumphostIpAddress            = cidrhost(var.JumpHost_SubnetAddressSpace, var.jumpHost_MgmtNumber)
+  CS_IpAddress                 = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.CS_MgmtNumber)
   DataDomainMgmtIpAddress      = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_MgmtNumber)
   privatelinkip                = module.ddve[0].privatelink
   customTags                   = var.customTags
