@@ -62,7 +62,7 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
     source_port_range          = "*"
     destination_port_ranges    = ["22", "443"]
     source_address_prefix      = var.jumphostIpAddress
-    destination_address_prefix = var.PPCR_MgmtIpAddress
+    destination_address_prefix = var.CS_IpAddress
   }
   security_rule {
     name                       = "Allow_Mgmt_Host_to_DDVE_Out"

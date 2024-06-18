@@ -30,3 +30,6 @@ variable "customTags" {
 variable "PPCR_Image_Id" {
   default = null
 }
+variable "CS_IpAddress" {
+  default = null
+}
