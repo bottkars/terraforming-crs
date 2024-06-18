@@ -70,6 +70,23 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     destination_address_prefix = var.ReplicationIpAddress
   }
   security_rule {
+    name              = "Allow_DDVE_replication"
+    priority          = 500
+    direction         = "Outbound"
+    access            = "Allow"
+    description       = "Allow SSH and NFS to DDVE from Mgmt Host"
+    protocol          = "TCP"
+    source_port_range = "*"
+    destination_port_ranges = [
+
+      "2051",
+
+    ]
+    source_address_prefix      = var.ReplicationIpAddress
+    destination_address_prefix = "10.204.108.137/32"
+  }
+
+  security_rule {
     name                       = "Allow_DDVE_to_Endpoint_HTTPS_Out"
     priority                   = 210
     direction                  = "Outbound"
@@ -82,30 +99,30 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     destination_address_prefix = azurerm_private_endpoint.blobendpoint.private_service_connection[0].private_ip_address
   }
 
- # security_rule {
- #   name                       = "Deny_All_Inbound"
- #   priority                   = 4096
- #   direction                  = "Inbound"
- #   access                     = "Deny"
- #   description                = "Deny All Inbound - Overrides Azure Allow All Default Rule"
- #   protocol                   = "*"
- #   source_port_range          = "*"
+  # security_rule {
+  #   name                       = "Deny_All_Inbound"
+  #   priority                   = 4096
+  #   direction                  = "Inbound"
+  #   access                     = "Deny"
+  #   description                = "Deny All Inbound - Overrides Azure Allow All Default Rule"
+  #   protocol                   = "*"
+  #   source_port_range          = "*"
   #  destination_port_range     = "*"
- #   source_address_prefix      = "*"
- #   destination_address_prefix = "*"
- # }
-# security_rule {
-#    name                       = "Deny_All_Outbound"
-#    priority                   = 4096
-#    direction                  = "Outbound"
-#    access                     = "Deny"
-#    description                = "Deny All Outbound - Overrides Azure Allow All Default Rule"
-#    protocol                   = "*"
-#    source_port_range          = "*"
-#    destination_port_range     = "*"
-#    source_address_prefix      = "*"
-#    destination_address_prefix = "*"
-#  }
+  #   source_address_prefix      = "*"
+  #   destination_address_prefix = "*"
+  # }
+  # security_rule {
+  #    name                       = "Deny_All_Outbound"
+  #    priority                   = 4096
+  #    direction                  = "Outbound"
+  #    access                     = "Deny"
+  #    description                = "Deny All Outbound - Overrides Azure Allow All Default Rule"
+  #    protocol                   = "*"
+  #    source_port_range          = "*"
+  #    destination_port_range     = "*"
+  #    source_address_prefix      = "*"
+  #    destination_address_prefix = "*"
+  #  }
   tags = merge(
     var.customTags,
     {
