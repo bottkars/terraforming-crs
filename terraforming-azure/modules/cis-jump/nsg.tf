@@ -49,7 +49,7 @@ resource "azurerm_network_security_group" "jh_security_group" {
 
   security_rule {
     name              = "Allow_Jump_Host_to_CS_Host_Traffic_Out"
-    priority          = 210
+    priority          = 220
     direction         = "Outbound"
     access            = "Allow"
     description       = "Allow SSH, REST, Ngninx to MCS Host from Jump Host"
