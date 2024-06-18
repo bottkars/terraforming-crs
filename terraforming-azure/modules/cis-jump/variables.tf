@@ -31,3 +31,6 @@ variable "PPCR_MgmtIpAddress" {
 variable "customTags" {
   default = {}
 }
+variable "CS_IpAddress" {
+  default = null
+}

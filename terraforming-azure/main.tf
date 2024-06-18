@@ -93,6 +93,7 @@ module "cs" {
   customTags                   = var.customTags
   CS_Image_Id                  = var.CS_Image_Id
 }
+
 module "jumphost" {
   source                       = "./modules/cis-jump"
   depends_on                   = [module.common_rg]
@@ -104,6 +105,7 @@ module "jumphost" {
   ProductionClientIpAddress    = var.ProductionClientIpAddress
   DataDomainMgmtIpAddress      = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_MgmtNumber)
   PPCR_MgmtIpAddress           = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.PPCR_MgmtNumber)
+  CS_IpAddress                 = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.CS_MgmtNumber)
   customTags                   = var.customTags
 }
 

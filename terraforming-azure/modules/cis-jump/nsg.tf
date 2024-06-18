@@ -44,7 +44,7 @@ resource "azurerm_network_security_group" "jh_security_group" {
       "14780"
     ]
     source_address_prefix      = var.jumphostIpAddress
-    destination_address_prefix = var.PPCR_MgmtIpAddress
+    destination_address_prefixes = [azurerm_network_interface.jumphost_nic, var.CS_IpAddress ]
   }
   security_rule {
     name                       = "Deny_All_Inbound"

@@ -91,3 +91,6 @@ resource "azurerm_network_interface_security_group_association" "cs_security_gro
   network_interface_id      = azurerm_network_interface.cs_nic.id
   network_security_group_id = azurerm_network_security_group.cs_security_group.id
 }
+
+
+
