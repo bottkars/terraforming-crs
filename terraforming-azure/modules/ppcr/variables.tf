@@ -24,6 +24,9 @@ variable "resource_group_name" {
 variable "DataDomainMgmtIpAddress" {
   
 }
+variable "ReplicationIpAddress" {
+  
+}
 variable "customTags" {
   default = {}
 }

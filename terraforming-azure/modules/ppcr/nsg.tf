@@ -64,6 +64,24 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
     source_address_prefix      = var.jumphostIpAddress
     destination_address_prefix = var.CS_IpAddress
   }
+
+  security_rule {
+    name              = "Allow_DDVE_replication_in"
+    priority          = 500
+    direction         = "Inbound"
+    access            = "Allow"
+    description       = "Allow Replication in"
+    protocol          = "TCP"
+    source_port_range = "*"
+    destination_port_ranges = [
+
+      "2051",
+
+    ]
+    source_address_prefix      = "10.204.108.137/32"
+    destination_address_prefix = var.ReplicationIpAddress
+  }
+
   security_rule {
     name                       = "Allow_Mgmt_Host_to_DDVE_Out"
     priority                   = 200
