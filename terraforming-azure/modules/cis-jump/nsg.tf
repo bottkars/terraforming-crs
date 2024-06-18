@@ -100,7 +100,7 @@ resource "azurerm_network_interface_security_group_association" "jh_security_gro
 }
 
 
-resource "azurerm_subnet_network_security_group_association" "jh_security_group_management_net" {
-  subnet_id                 = var.jumphost_subnet_id
-  network_security_group_id = azurerm_network_security_group.jh_security_group.id
-}
+#resource "azurerm_subnet_network_security_group_association" "jh_security_group_management_net" {
+#  subnet_id                 = var.jumphost_subnet_id
+#  network_security_group_id = azurerm_network_security_group.jh_security_group.id
+#}
