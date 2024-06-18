@@ -44,8 +44,25 @@ resource "azurerm_network_security_group" "jh_security_group" {
       "14780"
     ]
     source_address_prefix      = var.jumphostIpAddress
-    destination_address_prefixes = [var.PPCR_MgmtIpAddress, var.CS_IpAddress ]
+    destination_address_prefix = var.PPCR_MgmtIpAddress
   }
+
+  security_rule {
+    name              = "Allow_Jump_Host_to_CS_Host_Traffic_Out"
+    priority          = 210
+    direction         = "Outbound"
+    access            = "Allow"
+    description       = "Allow SSH, REST, Ngninx to MCS Host from Jump Host"
+    protocol          = "TCP"
+    source_port_range = "*"
+    destination_port_ranges = [
+      "22",
+      "443",
+    ]
+    source_address_prefix      = var.jumphostIpAddress
+    destination_address_prefix = var.CS_IpAddress
+  }
+
   security_rule {
     name                       = "Deny_All_Inbound"
     priority                   = 4096
