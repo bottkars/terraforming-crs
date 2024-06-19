@@ -60,7 +60,11 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     access            = "Allow"
     description       = "Allow SSH and NFS to DDVE from Mgmt Host"
     protocol          = "TCP"
-    source_port_range = "*"
+    source_port_ranges = [
+
+      "2051","3009"
+
+    ]
     destination_port_ranges = [
 
       "2051","3009"

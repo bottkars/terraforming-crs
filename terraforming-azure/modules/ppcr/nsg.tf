@@ -72,7 +72,11 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
     access            = "Allow"
     description       = "Allow Replication in"
     protocol          = "TCP"
-    source_port_range = "*"
+    source_port_ranges = [
+
+      "2051","3009"
+
+    ]
     destination_port_ranges = [
 
       "2051","3009"
