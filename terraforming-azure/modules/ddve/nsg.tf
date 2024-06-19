@@ -60,17 +60,13 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     access            = "Allow"
     description       = "Allow SSH and NFS to DDVE from Mgmt Host"
     protocol          = "TCP"
-    source_port_ranges = [
-
-      "2051","3009"
-
-    ]
+    source_port_range = "*"
     destination_port_ranges = [
 
       "2051","3009"
 
     ]
-    source_address_prefix      = "*" # "10.204.108.137/32"
+    source_address_prefix      = "10.204.108.137"
     destination_address_prefix = var.ReplicationIpAddress
   }
 
