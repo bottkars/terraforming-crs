@@ -83,6 +83,26 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     source_address_prefix      = var.PPCR_MgmtIpAddress
     destination_address_prefix = azurerm_private_endpoint.blobendpoint.private_service_connection[0].private_ip_address
   }
+  security_rule {
+    name              = "Allow_DDVE_replication_Out"
+    priority          = 500
+    direction         = "Outbound"
+    access            = "Allow"
+    description       = "Allow Replication Out"
+    protocol          = "TCP"
+    source_port_range = [
+
+      "2051","3009"
+
+    ]
+    destination_port_ranges = [
+
+      "2051","3009"
+
+    ]
+    source_address_prefix      = var.ReplicationIpAddress
+    destination_address_prefix = "*" #"10.204.108.137"
+  }
 
   # security_rule {
   #   name                       = "Deny_All_Inbound"

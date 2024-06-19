@@ -119,7 +119,7 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
     destination_address_prefix = "AzureResourceManager"
   }
   security_rule {
-    name                       = "AAllow_DDVE_to_Endpoint_HTTPS_Out"
+    name                       = "Allow_DDVE_to_Endpoint_HTTPS_Out"
     priority                   = 230
     direction                  = "Outbound"
     access                     = "Allow"
@@ -129,6 +129,26 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
     destination_port_ranges    = ["443"]
     source_address_prefix      = var.DataDomainMgmtIpAddress
     destination_address_prefix = var.privatelinkip
+  }
+  security_rule {
+    name              = "Allow_DDVE_replication_Out"
+    priority          = 500
+    direction         = "Outbound"
+    access            = "Allow"
+    description       = "Allow Replication Out"
+    protocol          = "TCP"
+    source_port_range = [
+
+      "2051","3009"
+
+    ]
+    destination_port_ranges = [
+
+      "2051","3009"
+
+    ]
+    source_address_prefix      = var.ReplicationIpAddress
+    destination_address_prefix = "*" #"10.204.108.137"
   }
 
 
