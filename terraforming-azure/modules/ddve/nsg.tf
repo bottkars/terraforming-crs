@@ -90,11 +90,7 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     access            = "Allow"
     description       = "Allow Replication Out"
     protocol          = "TCP"
-    source_port_ranges = [
-
-      "*"
-
-    ]
+    source_port_range = "*"
     destination_port_ranges = [
 
       "2051","3009"
