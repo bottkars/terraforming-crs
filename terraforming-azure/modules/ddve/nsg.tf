@@ -36,7 +36,7 @@ resource "azurerm_network_security_group" "ddve_security_group" {
   }
 
   security_rule {
-    name                       = "ADelete, test SSH"
+    name                       = "Delete_test_SSH"
     priority                   = 211
     direction                  = "Inbound"
     access                     = "Allow"

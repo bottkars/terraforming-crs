@@ -29,7 +29,7 @@ resource "azurerm_network_security_group" "jh_security_group" {
     destination_address_prefix = var.DataDomainMgmtIpAddress
   }
   security_rule {
-    name                       = "SSH Test"
+    name                       = "SSH_Test"
     priority                   = 211
     direction                  = "Outbound"
     access                     = "Allow"
