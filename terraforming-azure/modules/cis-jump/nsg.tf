@@ -36,10 +36,22 @@ resource "azurerm_network_security_group" "jh_security_group" {
     description                = "SSH to repl"
     protocol                   = "TCP"
     source_port_range          = "*"
-    destination_port_ranges    = ["22"]
+    destination_port_ranges    = ["22","443"]
     source_address_prefix      = var.jumphostIpAddress
     destination_address_prefix = var.ReplicationIpAddress
   }
+  security_rule {
+    name                       = "SICMP"
+    priority                   = 2121
+    direction                  = "Outbound"
+    access                     = "Allow"
+    description                = "SSH to repl"
+    protocol                   = "ICMP"
+    source_port_range          = "*"
+    destination_port_ranges    = ["22","443"]
+    source_address_prefix      = var.jumphostIpAddress
+    destination_address_prefix = var.ReplicationIpAddress
+  }  
   security_rule {
     name              = "Allow_Jump_Host_to_Mgmt_Host_Traffic_Out"
     priority          = 210
