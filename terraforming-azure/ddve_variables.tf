@@ -32,7 +32,7 @@ variable "ddve_networks_resource_group_name" {
   default     = null
 }
 variable "ddve_ReplNumber" {
-  default = 12
+  default = 6
 }
 
 variable "ddve_MgmtNumber"    {

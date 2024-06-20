@@ -72,7 +72,7 @@ module "ppcr" {
   jumphostIpAddress            = cidrhost(var.JumpHost_SubnetAddressSpace, var.jumpHost_MgmtNumber)
   CS_IpAddress                 = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.CS_MgmtNumber)
   DataDomainMgmtIpAddress      = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_MgmtNumber)
-  ReplicationIpAddress        = cidrhost(var.JumpHost_SubnetAddressSpace, var.ddve_ReplNumber)
+  ReplicationIpAddress         = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_ReplNumber)
   privatelinkip                = module.ddve[0].privatelink
   customTags                   = var.customTags
   PPCR_Image_Id                = var.PPCR_Image_Id
@@ -108,31 +108,31 @@ module "jumphost" {
   DataDomainMgmtIpAddress      = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_MgmtNumber)
   PPCR_MgmtIpAddress           = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.PPCR_MgmtNumber)
   CS_IpAddress                 = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.CS_MgmtNumber)
-  ReplicationIpAddress        = cidrhost(var.JumpHost_SubnetAddressSpace, var.ddve_ReplNumber)
+  ReplicationIpAddress         = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_ReplNumber)
   customTags                   = var.customTags
 }
 
 
 module "ddve" {
-  source                      = "./modules/ddve"
-  count                       = var.ddve_count > 0 ? var.ddve_count : 0
-  ddve_instance               = count.index + 1
-  depends_on                  = [module.networks, module.common_rg]
-  ddve_type                   = var.ddvelist[count.index].ddve_type
-  ddve_version                = var.ddvelist[count.index].ddve_version
-  ddve_meta_disks             = var.ddvelist[count.index].ddve_meta_disks
-  ddve_password               = var.ddve_initial_password
-  ddve_tcp_inbound_rules_Inet = var.ddve_tcp_inbound_rules_Inet
-  location                    = var.location
-  wan_ip                      = []
-  resourcePrefix              = var.resourcePrefix
-  DataDomainMgmtIpAddress     = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_MgmtNumber)
-  ReplicationIpAddress        = cidrhost(var.JumpHost_SubnetAddressSpace, var.ddve_ReplNumber)
-  jumphostIpAddress           = cidrhost(var.JumpHost_SubnetAddressSpace, var.jumpHost_MgmtNumber)
-  ProductionClientIpAddress    = var.ProductionClientIpAddress
+  source                            = "./modules/ddve"
+  count                             = var.ddve_count > 0 ? var.ddve_count : 0
+  ddve_instance                     = count.index + 1
+  depends_on                        = [module.networks, module.common_rg]
+  ddve_type                         = var.ddvelist[count.index].ddve_type
+  ddve_version                      = var.ddvelist[count.index].ddve_version
+  ddve_meta_disks                   = var.ddvelist[count.index].ddve_meta_disks
+  ddve_password                     = var.ddve_initial_password
+  ddve_tcp_inbound_rules_Inet       = var.ddve_tcp_inbound_rules_Inet
+  location                          = var.location
+  wan_ip                            = []
+  resourcePrefix                    = var.resourcePrefix
+  DataDomainMgmtIpAddress           = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_MgmtNumber)
+  ReplicationIpAddress              = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_ReplNumber)
+  jumphostIpAddress                 = cidrhost(var.JumpHost_SubnetAddressSpace, var.jumpHost_MgmtNumber)
+  ProductionClientIpAddress         = var.ProductionClientIpAddress
   PPCR_MgmtIpAddress                = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.PPCR_MgmtNumber)
-  replication_subnet_id             = var.create_networks ? module.networks[0].subnet_0_id : var.JumpHost_subnet_id
-  management_subnet_id              = var.create_networks ? module.networks[0].subnet_0_id : var.CR_DDVE_subnet_id
+  replication_subnet_id             = var.create_networks ? module.networks[0].subnet_1_id : var.CR_DDVE_subnet_id
+  management_subnet_id              = var.create_networks ? module.networks[0].subnet_1_id : var.CR_DDVE_subnet_id
   ddve_resource_group_name          = var.create_common_rg ? module.common_rg[0].resource_group_name : var.ppcr_resource_group_name
   ddve_networks_resource_group_name = var.ppcr_networks_resource_group_name
   customTags                        = var.customTags
