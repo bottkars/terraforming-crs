@@ -15,5 +15,5 @@ output "ddev_ssh_public_key" {
 
 output "ddve_ssh_private_key" {
   sensitive = true
-  value     = module.ddve[0].ssh_public_key
+  value     = module.ddve[0].ssh_private_key
 }
