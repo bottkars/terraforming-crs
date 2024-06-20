@@ -45,7 +45,7 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     protocol                   = "ICMP"
     source_port_range          = "*"
     destination_port_range    = "*"
-    source_address_prefix      = "*"
+    source_address_prefixes    = ["10.0.0.10","10.204.108.13"]
     destination_address_prefix = var.DataDomainMgmtIpAddress
   }
 
