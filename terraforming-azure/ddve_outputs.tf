@@ -6,3 +6,14 @@ output "ddve_private_ip" {
 output "atos_account" {
 value = module.ddve[0].atos_account
 }
+
+
+output "ssh_public_key" {
+  sensitive = true
+  value     = module.ddve[0].public_key
+}
+
+output "ssh_private_key" {
+  sensitive = true
+  value     = module.ddve[0].private_key
+}
