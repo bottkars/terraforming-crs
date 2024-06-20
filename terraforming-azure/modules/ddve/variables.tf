@@ -80,7 +80,9 @@ variable "ReplicationIpAddress" {
 variable "DataDomainMgmtIpAddress" {
   
 }
+variable "ProductionClientIpAddress" {
 
+}
 variable "ddve_type" {
   default = "16 TB DDVE"
 }

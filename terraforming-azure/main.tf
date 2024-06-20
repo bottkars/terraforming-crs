@@ -129,7 +129,7 @@ module "ddve" {
   DataDomainMgmtIpAddress     = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_MgmtNumber)
   ReplicationIpAddress        = cidrhost(var.JumpHost_SubnetAddressSpace, var.ddve_ReplNumber)
   jumphostIpAddress           = cidrhost(var.JumpHost_SubnetAddressSpace, var.jumpHost_MgmtNumber)
-  # ProductionClientIpAddress    = var.ProductionClientIpAddress
+  ProductionClientIpAddress    = var.ProductionClientIpAddress
   PPCR_MgmtIpAddress                = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.PPCR_MgmtNumber)
   replication_subnet_id             = var.create_networks ? module.networks[0].subnet_0_id : var.JumpHost_subnet_id
   management_subnet_id              = var.create_networks ? module.networks[0].subnet_0_id : var.CR_DDVE_subnet_id
