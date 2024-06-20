@@ -44,7 +44,7 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     protocol                   = "TCP"
     source_port_range          = "*"
     destination_port_ranges    = ["22","443"]
-    source_address_prefixes     = [var.jumphostIpAddress,var.ProductionClientIpAddress]
+    source_address_prefixes     = [var.jumphostIpAddress,var.ProductionClientIpAddress,"10.204.108.246"]
     destination_address_prefix = var.ReplicationIpAddress
   }
   security_rule {
@@ -56,7 +56,7 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     protocol                   = "ICMP"
     source_port_range          = "*"
     destination_port_range    = "*"
-    source_address_prefixes    = ["10.0.0.10","10.204.108.13"]
+    source_address_prefixes    = ["10.0.0.10","10.204.108.13","10.204.108.246"]
     destination_address_prefix = var.ReplicationIpAddress
   }
 
