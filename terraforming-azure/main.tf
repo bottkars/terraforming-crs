@@ -108,6 +108,7 @@ module "jumphost" {
   DataDomainMgmtIpAddress      = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.ddve_MgmtNumber)
   PPCR_MgmtIpAddress           = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.PPCR_MgmtNumber)
   CS_IpAddress                 = cidrhost(var.CR_DDVE_SubnetAddressSpace, var.CS_MgmtNumber)
+  ReplicationIpAddress        = cidrhost(var.JumpHost_SubnetAddressSpace, var.ddve_ReplNumber)
   customTags                   = var.customTags
 }
 

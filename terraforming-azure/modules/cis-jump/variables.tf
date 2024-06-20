@@ -12,7 +12,9 @@ variable "resourcePrefix" {
 variable "jumphost_subnet_id" {
 
 }
-
+variable "ReplicationIpAddress" {
+  
+}
 variable "jumphostIpAddress" {
 }
 variable "ProductionClientIpAddress" {
