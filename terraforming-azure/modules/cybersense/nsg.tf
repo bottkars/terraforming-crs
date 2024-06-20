@@ -18,7 +18,20 @@ resource "azurerm_network_security_group" "cs_security_group" {
 
 
   security_rule {
-    name                       = "Allow_Jump_Host_to_CS_Host_Traffic_In"
+    name                       = "Allow_Jump_Host_to_CS_Host_WEB_In"
+    priority                   = 220
+    direction                  = "Inbound"
+    access                     = "Allow"
+    description                = "Allow 443 to CS from Jump Host"
+    protocol                   = "TCP"
+    source_port_range          = "*"
+    destination_port_ranges    = ["443"]
+    source_address_prefix      = var.jumphostIpAddress
+    destination_address_prefix = var.CS_IpAddress
+  }
+
+  security_rule {
+    name                       = "Allow_Mgmt_Host_to_CS_Host_Traffic_In"
     priority                   = 220
     direction                  = "Inbound"
     access                     = "Allow"
@@ -26,7 +39,7 @@ resource "azurerm_network_security_group" "cs_security_group" {
     protocol                   = "TCP"
     source_port_range          = "*"
     destination_port_ranges    = ["22", "443", ]
-    source_address_prefix      = var.jumphostIpAddress
+    source_address_prefix      = var.PPCR_MgmtIpAddress
     destination_address_prefix = var.CS_IpAddress
   }
 
@@ -55,6 +68,8 @@ resource "azurerm_network_security_group" "cs_security_group" {
     source_address_prefix      = var.CS_IpAddress
     destination_address_prefix = "AzureResourceManager"
   }
+
+
 
   security_rule {
     name                       = "Deny_All_Inbound"
