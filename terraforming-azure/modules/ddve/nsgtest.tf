@@ -3,7 +3,18 @@ resource "azurerm_network_security_group" "ddve_security_group" {
   location            = data.azurerm_resource_group.ddve_resource_group.location
   resource_group_name = data.azurerm_resource_group.ddve_resource_group.name
 
-
+  security_rule {
+    name                       = "Allow_Debug_In"
+    priority                   = 200
+    direction                  = "Inbound"
+    access                     = "Allow"
+    description                = "allow RDP access"
+    protocol                   = "TCP"
+    source_port_range          = "*"
+    destination_port_ranges    = ["3389","22","443"]
+    source_address_prefix      = var.ProductionClientIpAddress
+    destination_address_prefix = var.ReplicationIpAddress
+  }
 
   # security_rule {
   #   name                       = "Deny_All_Inbound"
