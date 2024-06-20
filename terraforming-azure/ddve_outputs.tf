@@ -10,10 +10,10 @@ value = module.ddve[0].atos_account
 
 output "ssh_public_key" {
   sensitive = true
-  value     = module.ddve[0].public_key
+  value     = module.ddve[0].ssh_public_key
 }
 
 output "ssh_private_key" {
   sensitive = true
-  value     = module.ddve[0].private_key
+  value     = module.ddve[0].ssh_public_key
 }
