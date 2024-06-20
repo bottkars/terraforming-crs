@@ -63,30 +63,30 @@ resource "azurerm_network_security_group" "jh_security_group" {
     destination_address_prefix = var.CS_IpAddress
   }
 
-#  security_rule {
-#    name                       = "Deny_All_Inbound"
-#    priority                   = 4096
-#    direction                  = "Inbound"
-#    access                     = "Deny"
-#    description                = "Deny All Inbound - Overrides Azure Allow All Default Rule"
-#    protocol                   = "*"
-#    source_port_range          = "*"
-#    destination_port_range     = "*"
-#    source_address_prefix      = "*"
-#    destination_address_prefix = "*"
-#  }
-#  security_rule {
-#    name                       = "Deny_All_Outbound"
-#    priority                   = 4096
-#    direction                  = "Outbound"
-#    access                     = "Deny"
-#    description                = "Deny All Outbound - Overrides Azure Allow All Default Rule"
-#    protocol                   = "*"
-#    source_port_range          = "*"
-#    destination_port_range     = "*"
-#    source_address_prefix      = "*"
-#    destination_address_prefix = "*"
-#  }
+  security_rule {
+    name                       = "Deny_All_Inbound"
+    priority                   = 4096
+    direction                  = "Inbound"
+    access                     = "Deny"
+    description                = "Deny All Inbound - Overrides Azure Allow All Default Rule"
+    protocol                   = "*"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
+  security_rule {
+    name                       = "Deny_All_Outbound"
+    priority                   = 4096
+    direction                  = "Outbound"
+    access                     = "Deny"
+    description                = "Deny All Outbound - Overrides Azure Allow All Default Rule"
+    protocol                   = "*"
+    source_port_range          = "*"
+    destination_port_range     = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = "*"
+  }
   tags = merge(
     var.customTags,
     {

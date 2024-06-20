@@ -35,7 +35,18 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     destination_address_prefix = var.DataDomainMgmtIpAddress
   }
 
-
+  security_rule {
+    name                       = "ADelete, test SSH"
+    priority                   = 211
+    direction                  = "Inbound"
+    access                     = "Allow"
+    description                = "Allow SSH"
+    protocol                   = "TCP"
+    source_port_range          = "*"
+    destination_port_ranges    = ["22"]
+    source_address_prefix      = var.jumphostIpAddress
+    destination_address_prefix = var.ReplicationIpAddress
+  }
   security_rule {
     name                       = "Allow_Ping"
     priority                   = 555
