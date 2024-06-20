@@ -32,7 +32,7 @@ resource "azurerm_network_security_group" "cs_security_group" {
 
   security_rule {
     name                       = "Allow_Mgmt_Host_to_CS_Host_Traffic_In"
-    priority                   = 220
+    priority                   = 210
     direction                  = "Inbound"
     access                     = "Allow"
     description                = "Allow SSH, REST, Ngninx to Mgmt Host from Jump Host"
