@@ -36,14 +36,14 @@ resource "azurerm_network_security_group" "ddve_security_group" {
   }
 
   security_rule {
-    name                       = "Delete_test_SSH"
+    name                       = "Delete_test_"
     priority                   = 211
     direction                  = "Inbound"
     access                     = "Allow"
-    description                = "Allow SSH"
+    description                = "Allow Protocol Tests"
     protocol                   = "TCP"
     source_port_range          = "*"
-    destination_port_ranges    = ["22"]
+    destination_port_ranges    = ["22","443"]
     source_address_prefixes     = [var.jumphostIpAddress,var.ProductionClientIpAddress]
     destination_address_prefix = var.ReplicationIpAddress
   }
