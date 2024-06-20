@@ -35,6 +35,21 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     destination_address_prefix = var.DataDomainMgmtIpAddress
   }
 
+
+  security_rule {
+    name                       = "Allow_Ping"
+    priority                   = 555
+    direction                  = "Inbound"
+    access                     = "Allow"
+    description                = "Allow Ping"
+    protocol                   = "ICMP"
+    source_port_range          = "*"
+    destination_port_range    = "*"
+    source_address_prefix      = "*"
+    destination_address_prefix = var.DataDomainMgmtIpAddress
+  }
+
+
   security_rule {
     name              = "Allow_DDVE_to_Mgmt_Host_Out"
     priority          = 200

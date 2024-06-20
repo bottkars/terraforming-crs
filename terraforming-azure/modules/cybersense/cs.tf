@@ -1,5 +1,5 @@
 locals {
-  MgmtHostVirtualMachineSize = "Standard_D16s_v3"
+  CSHostVirtualMachineSize = "Standard_D4ds_v4"
 }
 data "azurerm_resource_group" "cs_networks_resource_group" {
   name = var.networks_resource_group_name
@@ -31,7 +31,7 @@ resource "azurerm_virtual_machine" "cs" {
   location                         = data.azurerm_resource_group.cs_resource_group.location
   depends_on                       = [azurerm_network_interface.cs_nic, azurerm_storage_account.cs_diag_storage_account]
   network_interface_ids            = [azurerm_network_interface.cs_nic.id]
-  vm_size                          = local.MgmtHostVirtualMachineSize
+  vm_size                          = local.CSHostVirtualMachineSize
   delete_os_disk_on_termination    = "true"
   delete_data_disks_on_termination = "true"
 
