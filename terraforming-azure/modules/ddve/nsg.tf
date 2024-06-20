@@ -44,7 +44,7 @@ resource "azurerm_network_security_group" "ddve_security_group" {
     protocol                   = "TCP"
     source_port_range          = "*"
     destination_port_ranges    = ["22"]
-    source_address_prefix      = var.jumphostIpAddress
+    source_address_prefixes     = [var.jumphostIpAddress,"10.204.108.68"]
     destination_address_prefix = var.ReplicationIpAddress
   }
   security_rule {
