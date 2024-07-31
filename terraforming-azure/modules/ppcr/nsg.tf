@@ -27,6 +27,18 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
     destination_port_ranges    = ["22", "111", "2049", "2052", "3009"]
     source_address_prefix      = var.DataDomainMgmtIpAddress
     destination_address_prefix = var.PPCR_MgmtIpAddress
+  }  
+  security_rule {
+    name                       = "Allow_CS_Host_to_DDVE_In"
+    priority                   = 250
+    direction                  = "Inbound"
+    access                     = "Allow"
+    description                = "Allow SSH and NFS Mount to DDVE from Mgmt Host"
+    protocol                   = "TCP"
+    source_port_range          = "*"
+    destination_port_ranges    = ["22", "111", "2049", "2052", "3009"]
+    source_address_prefix      = var.CS_IpAddress
+    destination_address_prefix = var.DataDomainMgmtIpAddress
   }
   security_rule {
     name                       = "Allow_Jump_Host_to_Mgmt_Host_Traffic_In"
@@ -120,6 +132,7 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
     source_address_prefix      = var.DataDomainMgmtIpAddress
     destination_address_prefix = var.PPCR_MgmtIpAddress
   }
+
   security_rule {
     name                       = "Allow_Mgmt_Host_to_AzureMgmt_HTTPS_Out"
     priority                   = 220
@@ -143,6 +156,18 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
     destination_port_ranges    = ["443"]
     source_address_prefix      = var.DataDomainMgmtIpAddress
     destination_address_prefix = var.privatelinkip
+  }
+    security_rule {
+    name                       = "Allow_DDVE_to_CS_Host_Out"
+    priority                   = 240
+    direction                  = "Outbound"
+    access                     = "Allow"
+    description                = "Allow SSH and NFS Mount to Mgmt Host from DDVE"
+    protocol                   = "TCP"
+    source_port_range          = "*"
+    destination_port_ranges    = ["22", "111", "2049", "2052", "3009"]
+    source_address_prefix      = var.DataDomainMgmtIpAddress
+    destination_address_prefix = var.CS_IpAddress
   }
   security_rule {
     name              = "Allow_DDVE_replication_Out"
