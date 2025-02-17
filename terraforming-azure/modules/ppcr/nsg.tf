@@ -155,7 +155,7 @@ resource "azurerm_network_security_group" "ppcr_security_group" {
     source_port_range          = "*"
     destination_port_ranges    = ["443"]
     source_address_prefix      = var.DataDomainMgmtIpAddress
-    destination_address_prefix = var.privatelinkip
+#    destination_address_prefix = var.privatelinkip
   }
     security_rule {
     name                       = "Allow_DDVE_to_CS_Host_Out"

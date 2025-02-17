@@ -19,7 +19,7 @@ resource "tls_private_key" "ppcr" {
 }
 
 resource "random_string" "storage_account_name" {
-  length  = 16
+  length  = 10
   special = false
   upper   = false
 }

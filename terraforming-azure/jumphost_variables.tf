@@ -1,5 +1,5 @@
 variable "jumphost_networks_resource_group_name" {
-  default = "csc-edub-ashci-rg"
+  default = null
 }
 
 variable "jumphost_resource_group_name" {

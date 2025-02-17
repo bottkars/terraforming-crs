@@ -14,7 +14,7 @@ variable "client_secret" {
 default = null
 }
 variable "location" {
-default = null
+  description = "The Azure Region to use"
 }
 variable "azure_environment" {
   description = "The Azure cloud environment to use. Available values at https://www.terraform.io/docs/providers/azurerm/#environment"

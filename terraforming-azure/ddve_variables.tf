@@ -40,65 +40,44 @@ variable "ddve_MgmtNumber"    {
 }
 
 variable "ddvelist" {
-  default = [
-    {
-      "ddve_meta_disks" = [1000, 1000],
-      "ddve_type"       = "16 TB DDVE"
-      "ddve_version"    = "7.13.0020.MSDN"
-    },
-    {
-      "ddve_meta_disks" : [1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000, 1000],
-      "ddve_type" : "96 TB DDVE"
-            "ddve_version"    = "7.13.020"
-    },
-    {
-      "ddve_meta_disks" : [1000, 1000, 1000, 1000],
-      "ddve_type" : "32 TB DDVE"
-    },
-    {
-      "ddve_meta_disks" : [2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000, 2000],
-      "ddve_type" : "256 TB DDVE"
+  type = map(object({
+    ddve_name       = string
+    ddve_meta_disks = list(string)
+    ddve_type       = string
+    ddve_version    = string
+  }))
+  description = <<EOT
+map describing each individual DDVE configuration, must contain correct version  '7.10.1030', '7.10.1040', '7.10.1050', '7.13.100', '7.13.1010', '7.7.5040', '7.7.5050','8.1.000', '8.1.0010', '7.10.1030.MSDN', '7.10.1040.MSDN', '7.10.1050.MSDN', '7.13.100.MSDN', '7.13.1010.MSDN', '7.7.5040.MSDN', '7.7.5050.MSDN','8.1.0010.MSDN' .
+    firstdd = {
+      ddve_name       = "ddve1"
+      ddve_meta_disks = [1000, 1000]
+      ddve_type       = "16 TB DDVE"
+      ddve_version    = "8.1.0010.MSDN"
     }
-  ]
-}
-variable "ddve_version" {
-  type        = string
-  default     = "7.13.020"
-  description = "DDVE Version, can be: '7.7.525', '7.10.115', '7.10.120', '7.13.020', '7.10.1015.MSDN', '7.10.120.MSDN', '7.7.5020.MSDN', '7.13.0020.MSDN'"
+EOT  
+  default = {}
   validation {
-    condition = anytrue([
-      var.ddve_version == "7.7.525",
-      var.ddve_version == "7.10.115",
-      var.ddve_version == "7.10.120",
-      var.ddve_version == "7.13.020",
-      var.ddve_version == "7.10.1015.MSDN",
-      var.ddve_version == "7.10.120.MSDN",
-      var.ddve_version == "7.7.5020.MSDN",
-      var.ddve_version == "7.13.0020.MSDN",
+    condition = alltrue([
+      for ddve in values(var.ddvelist) :
+      length(ddve.ddve_name) >= 1 && length(ddve.ddve_name) <= 15
     ])
-    error_message = "Must be a valid DDVE Version, can be:  '7.7.525', '7.10.115', '7.10.120', '7.13.020', '7.10.1015.MSDN', '7.10.120.MSDN', '7.7.5020.MSDN', '7.13.0020.MSDN' ."
+    error_message = "The Name length oh the ddve  must not exceed 15 chars"
   }
+  validation {
+    condition = alltrue([
+      for ddve in values(var.ddvelist) : contains(["7.10.1030", "7.10.1040", "7.10.1050", "7.13.100", "7.13.1010", "7.7.5040", "7.7.5050","8.1.000", "8.1.0010", "7.10.1030.MSDN", "7.10.1040.MSDN", "7.10.1050.MSDN", "7.13.100.MSDN", "7.13.1010.MSDN", "7.7.5040.MSDN", "7.7.5050.MSDN","8.1.0010.MSDN"], ddve.ddve_version)
+    ])
+    error_message = "Must be a valid DDVE Version, can be:  '7.10.1030', '7.10.1040', '7.10.1050', '7.13.100', '7.13.1010', '7.7.5040', '7.7.5050','8.1.000', '8.1.0010', '7.10.1030.MSDN', '7.10.1040.MSDN', '7.10.1050.MSDN', '7.13.100.MSDN', '7.13.1010.MSDN', '7.7.5040.MSDN', '7.7.5050.MSDN','8.1.0010.MSDN' ."
+  }
+  validation {
+    condition = alltrue([
+      for ddve in values(var.ddvelist) : contains(["16 TB DDVE", "32 TB DDVE", "96 TB DDVE", "256 TB DDVE","16 TB DDVE PERF", "32 TB DDVE PERF", "96 TB DDVE PERF", "256 TB DDVE PERF"], ddve.ddve_type)
+    ])
+    error_message = "DDVE Type, can be: '16 TB DDVE', '32 TB DDVE', '96 TB DDVE', '256 TB DDVE','16 TB DDVE PERF', '32 TB DDVE PERF', '96 TB DDVE PERF', '256 TB DDVE PERF'."
+  }  
 }
 
 
-variable "ddve_type" {
-  type        = string
-  default     = "16 TB DDVE"
-  description = "DDVE Type, can be: '16 TB DDVE', '32 TB DDVE', '96 TB DDVE', '256 TB DDVE','16 TB DDVE PERF', '32 TB DDVE PERF', '96 TB DDVE PERF', '256 TB DDVE PERF'"
-  validation {
-    condition = anytrue([
-      var.ddve_type == "16 TB DDVE",
-      var.ddve_type == "32 TB DDVE",
-      var.ddve_type == "96 TB DDVE",
-      var.ddve_type == "256 TB DDVE",
-      var.ddve_type == "16 TB DDVE PERF",
-      var.ddve_type == "32 TB DDVE PERF",
-      var.ddve_type == "96 TB DDVE PERF",
-      var.ddve_type == "256 TB DDVE PERF"
-    ])
-    error_message = "Must be a valid DDVE Type, can be: '16 TB DDVE', '32 TB DDVE', '96 TB DDVE', '256 TB DDVE'."
-  }
-}
 
 variable "vnet_id" {
   default = ""

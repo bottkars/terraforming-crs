@@ -38,7 +38,7 @@ variable "ddve_networks_resource_group_name" {
 #}
 
 variable "ddve_instance" {
-  type = number
+  type = string
 }
 
 
@@ -63,7 +63,9 @@ variable "ddve_ppdd_nfs_path" {
   default = ""
 }
 
-
+variable "ddve_count" {
+  type = number
+}
 variable "ddve_tcp_inbound_rules_Vnet" {
   default = ["22", "2049", "2051", "3009", "443"]
 }

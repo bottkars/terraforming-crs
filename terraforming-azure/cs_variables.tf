@@ -1,5 +1,5 @@
 variable "CS_MgmtNumber" {
-  default = 16
+  default = 20
 }
 
 variable "CS_Image_Id" {

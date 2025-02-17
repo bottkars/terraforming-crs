@@ -73,18 +73,18 @@ resource "azurerm_network_security_group" "ddve_security_group" {
   }
 
 
-  security_rule {
-    name                       = "Allow_DDVE_to_Endpoint_HTTPS_Out"
-    priority                   = 210
-    direction                  = "Outbound"
-    access                     = "Allow"
-    description                = "Allow HTTPS to Endpoint from DDVE"
-    protocol                   = "TCP"
-    source_port_range          = "*"
-    destination_port_ranges    = ["443"]
-    source_address_prefix      = var.PPCR_MgmtIpAddress
-    destination_address_prefix = azurerm_private_endpoint.blobendpoint.private_service_connection[0].private_ip_address
-  }
+  # security_rule {
+  #   name                       = "Allow_DDVE_to_Endpoint_HTTPS_Out"
+  #   priority                   = 210
+  #   direction                  = "Outbound"
+  #   access                     = "Allow"
+  #   description                = "Allow HTTPS to Endpoint from DDVE"
+  #   protocol                   = "TCP"
+  #   source_port_range          = "*"
+  #   destination_port_ranges    = ["443"]
+  #   source_address_prefix      = var.PPCR_MgmtIpAddress
+  #   destination_address_prefix = azurerm_private_endpoint.blobendpoint.private_service_connection[0].private_ip_address
+  # }
   security_rule {
     name              = "Allow_DDVE_replication_Out"
     priority          = 500

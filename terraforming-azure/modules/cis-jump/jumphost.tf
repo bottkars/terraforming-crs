@@ -10,7 +10,7 @@ data "azurerm_resource_group" "jumphost_resource_group" {
 }
 
 resource "random_string" "storage_account_name" {
-  length  = 16
+  length  = 10
   special = false
   upper   = false
 }
@@ -40,19 +40,34 @@ resource "azurerm_virtual_machine" "jumphost" {
     enable_automatic_upgrades = false
   }
 
+
+
   plan {
-    publisher = "center-for-internet-security-inc"
-    product   = "cis-windows-server"
-    name      = "cis-windows-server2019-l2-gen1"
+    publisher = "MicrosoftWindowsServer"
+    product   = "WindowsServer"
+    name      = "2019-datacenter-gensecond"
 
   }
 
   storage_image_reference {
-    publisher = "center-for-internet-security-inc"
-    offer     = "cis-windows-server"
-    sku       = "cis-windows-server2019-l2-gen1"
+    publisher = "MicrosoftWindowsServer"
+    offer     = "WindowsServer"
+    sku       = "2019-datacenter-gensecond"
     version   = "latest"
   }
+  # plan {
+  #   publisher = "center-for-internet-security-inc"
+  #   product   = "cis-windows-server"
+  #   name      = "cis-windows-server2019-l2-gen1"
+
+  # }
+
+  # storage_image_reference {
+  #   publisher = "center-for-internet-security-inc"
+  #   offer     = "cis-windows-server"
+  #   sku       = "cis-windows-server2019-l2-gen1"
+  #   version   = "latest"
+  # }
   zones = ["1"]
   tags = merge(
     var.customTags,
@@ -97,7 +112,7 @@ resource "azurerm_storage_account" "jumphost_diag_storage_account" {
   tags = merge(
     var.customTags,
     {
-      vm = "${var.resourcePrefix}-CR-VM"
+      vm = "${var.resourcePrefix}-JH-VM"
       "cr.vault-jump-host.vm" : "PPCR Jump Host VM"
   })
 }
